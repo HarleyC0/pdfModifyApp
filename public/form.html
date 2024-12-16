@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contratos ML</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Formulario para Contratos ML</h1>
+    <form action="#" method="post" id="form-cliente">
+      <!-- Sr. o Sra. -->
+      <label for="sr-o-sra">Título (Sr. o Sra.)</label>
+      <select id="sr-o-sra" name="sr-o-sra" required>
+        <option value="">Seleccione...</option>
+        <option value="Sr">Sr.</option>
+        <option value="Sra">Sra.</option>
+      </select>
+  
+      <!-- Mr o Ms -->
+      <label for="mr-o-ms">Título (Mr. o Ms.)</label>
+      <select id="mr-o-ms" name="mr-o-ms" required>
+        <option value="">Seleccione...</option>
+        <option value="Mr">Mr.</option>
+        <option value="Ms">Ms.</option>
+      </select>
+  
+      <!-- Nombre APELLIDOS -->
+      <label for="nombre-apellidos">Nombre y Apellidos</label>
+      <input type="text" id="nombre-apellidos" name="nombre-apellidos" placeholder="Nombre APELLIDOS" required>
+  
+      <!-- Fecha en Español -->
+      <label for="fecha-es">Fecha (Español)</label>
+      <input type="text" id="fecha-es" name="fecha-es" placeholder="Mes Día, 202X" required>
+  
+      <!-- Fecha en Inglés -->
+      <label for="fecha-en">Fecha (Inglés)</label>
+      <input type="text" id="fecha-en" name="fecha-en" placeholder="Month Day, 202X" required>
+  
+      <!-- Dirección Línea 1 -->
+      <label for="direccion-linea-1">Dirección + Puerta</label>
+      <input type="text" id="direccion-linea-1" name="direccion-linea-1" placeholder="Dirección + Puerta" required>
+  
+      <!-- Dirección Línea 2 -->
+      <label for="direccion-linea-2">Ciudad, Estado ZipCode</label>
+      <input type="text" id="direccion-linea-2" name="direccion-linea-2" placeholder="Ciudad, Estado ZipCode" required>
+  
+      <!-- Número de Teléfono -->
+      <label for="numero-telefono">Número de Teléfono</label>
+      <input type="tel" id="numero-telefono" name="numero-telefono" placeholder="(000) 000-0000" required>
+  
+      <!-- Correo Electrónico -->
+      <label for="correo-electronico">Correo Electrónico</label>
+      <input type="email" id="correo-electronico" name="correo-electronico" placeholder="Correo cliente" required>
+  
+      <!-- Nombre Agente -->
+      <label for="nombre-agente">Nombre del Agente</label>
+      <input type="text" id="nombre-agente" name="nombre-agente" placeholder="Nombre APELLIDOS" required>
+  
+      <!-- Botón de Enviar -->
+      <button type="submit">Enviar</button>
+    </form>
+
+    <!-- <script src="datos.js" type="module"></script> -->
+    <!-- <script src="Bienvenida.js" type="module"></script> -->
+
+</body>
+</html>
