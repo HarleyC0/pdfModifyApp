@@ -12,6 +12,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/status', (req, res) => {
+    res.send({
+        up: true
+    });
+});
+
 app.post('/submit', (req, res) => {
     const {
         'srA': srA,
@@ -29,4 +35,6 @@ app.post('/submit', (req, res) => {
     res.send(`Datos recibidos: <br> Nombre: ${name} <br> Correo: ${email}`);
 });
 
-app.listen(port)
+app.listen(port, () => {
+    console.log(`Running server on port ${port}`);
+});
