@@ -3,12 +3,14 @@ const path = require('path')
 const app = express()
 const port = 3000;
 
+const modifyPdf = require('./Bienvenida')
+
 
 // Middleware para servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')))
 
 
-// Leer datos de form
+// Middleware para leer datos del formulario
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -18,7 +20,7 @@ app.get('/status', (req, res) => {
     });
 });
 
-app.post('/submit', (req, res) => {
+app.post('/submit', async (req, res) => {
     const {
         'srA': srA,
         'mrS': mrS,
@@ -31,8 +33,15 @@ app.post('/submit', (req, res) => {
         'email': email,
         'nameAgent': nameAgent,
         } = req.body;
-    console.log(`nombre: ${name}, correo: ${email}`)
-    res.send(`Datos recibidos: <br> Nombre: ${name} <br> Correo: ${email}`);
+    console.log(`Datos recibidos: Nombre ${name}, correo: ${email}`)
+    
+    try {
+        await modifyPdf(`${srA || mrS}`, name, fechaEs)
+        res.send(`PDF generado para: ${name}. Revisar en Output Bienvanida.pdf`)
+    } catch (error) {
+        console.log("Error generando el PDF", error)
+        res.status(500).send("Ocurrio un error generando el pdf");
+    }
 });
 
 app.listen(port, () => {
