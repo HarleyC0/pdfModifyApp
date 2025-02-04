@@ -7,20 +7,24 @@ const port = process.env.PORT || 3000; // de forma local 3000, en vercel asignar
 const modifyPdf = require('./Bienvenida')
 const AcuerdoServicios = require('./AcuerdoServicios')
 
+// ruta para servir el index.html en pagina principal
+index.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Middleware para servir archivos estáticos
-index.use(express.static(path.join(__dirname, 'public')))
-
-
-// Middleware para leer datos del formulario
-
-index.use(express.urlencoded({ extended: true }));
+//index.use(express.static(path.join(__dirname, 'public')))
 
 index.get('/status', (req, res) => {
     res.send({
         up: true
     });
 });
+
+// Middleware para leer datos del formulario
+
+index.use(express.urlencoded({ extended: true }));
+
 
 index.post('/submit', async (req, res) => {
     const {
