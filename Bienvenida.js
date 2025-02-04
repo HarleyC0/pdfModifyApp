@@ -11,7 +11,7 @@ const fontBytes = fs.readFileSync(fontPath);
 
 async function modifyPdf(sr, nameClient, fechaEs) {
     //const pdfDoc = await PDFDocument.load(fs.readFileSync('./PDFs/1.Bienvenida.pdf'));
-    const pdfDoc = await PDFDocument.load(fs.readFileSync(path.join(process.cwd(), 'PDFs', '1.Bienvenida.pdf')));
+    const pdfDoc = await PDFDocument.load(fs.readFileSync(path.join(process.cwd(), 'public', 'PDFs', '1.Bienvenida.pdf')));
 
     pdfDoc.registerFontkit(fontkit);
     const ArialFuente = await pdfDoc.embedFont(fontBytes);
