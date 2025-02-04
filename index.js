@@ -66,7 +66,7 @@ index.post('/submit', async (req, res) => {
 // Nueva ruta para manejar la descarga de archivos
 index.get('/download', (req, res) => {
     const fileName = req.query.file; // Obtener el nombre del archivo desde la URL
-    const filePath = path.join(__dirname, 'output', fileName);
+    const filePath = path.join(__dirname, 'tmp', fileName);
 
     res.download(filePath, fileName, (err) => {
         if (err) {
