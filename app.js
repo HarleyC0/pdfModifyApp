@@ -4,6 +4,7 @@ const app = express()
 const port = 3000;
 
 const modifyPdf = require('./Bienvenida')
+const AcuerdoServicios = require('./AcuerdoServicios')
 
 
 // Middleware para servir archivos estáticos
@@ -37,7 +38,9 @@ app.post('/submit', async (req, res) => {
     
     try {
         await modifyPdf(`${srA || mrS}`, name, fechaEs)
+        await AcuerdoServicios(fechaEs, fechaEn, name)
         res.send(`PDF generado para: ${name}. Revisar en Output Bienvanida.pdf`)
+        // Meter aqui el link de "Descargar PDF"
     } catch (error) {
         console.log("Error generando el PDF", error)
         res.status(500).send("Ocurrio un error generando el pdf");
