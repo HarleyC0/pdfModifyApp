@@ -1,7 +1,7 @@
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib')
 const fontkit = require('@pdf-lib/fontkit')
 const fs = require('fs')
-const fontBytes = fs.readFileSync('./fonts/ARIALBOLDMT.OTF')
+const fontBytes = fs.readFileSync('./public/fonts/ARIALBOLDMT.OTF')
 
 async function AcuerdoServicios(fechaEs, fechaEn, nameClient) {
   const pdfDoc = await PDFDocument.create()

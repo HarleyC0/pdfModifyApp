@@ -1,17 +1,18 @@
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib')
 const fontkit = require('@pdf-lib/fontkit')
 const fs = require('fs')
-const fontBytes = fs.readFileSync('./fonts/ARIALBOLDMT.OTF')
+// direccion a fuente
+//const fontBytes = fs.readFileSync('./fonts/ARIALBOLDMT.OTF')
+const path = require('path');
+const fontPath = path.join(process.cwd(), 'public', 'fonts', 'ARIALBOLDMT.OTF');
+const fontBytes = fs.readFileSync(fontPath);
 
-// Datos de prueba, debe ser eliminado
-// const sr = 'Prueba'
-// const nameClient = "Nombre APELLIDOS"
-// const fechaEs = 'Mes Dia, 202X'
 
 
 async function modifyPdf(sr, nameClient, fechaEs) {
-    const pdfDoc = await PDFDocument.load(fs.readFileSync('./PDFs/1.Bienvenida.pdf'));
-    
+    //const pdfDoc = await PDFDocument.load(fs.readFileSync('./PDFs/1.Bienvenida.pdf'));
+    const pdfDoc = await PDFDocument.load(fs.readFileSync(path.join(process.cwd(), 'PDFs', '1.Bienvenida.pdf')));
+
     pdfDoc.registerFontkit(fontkit);
     const ArialFuente = await pdfDoc.embedFont(fontBytes);
 
