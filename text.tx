@@ -9,6 +9,8 @@
     Doc7
     Doc8
 
-3.  funcion que descargue los documentos
+3.  funcion que descargue los documentos - Check
     poner un link de descarga, estara en app js, en el try
     
+4. Corregir rutas y configurar el deploy en vercel
+   puede ser la ruta inicial del index.html?
