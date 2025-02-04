@@ -1,27 +1,28 @@
 const express = require('express')
 const path = require('path')
-const app = express()
-const port = 3000;
+const index = express()
+
+const port = process.env.PORT || 3000; // de forma local 3000, en vercel asignara un puerto
 
 const modifyPdf = require('./Bienvenida')
 const AcuerdoServicios = require('./AcuerdoServicios')
 
 
 // Middleware para servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')))
+index.use(express.static(path.join(__dirname, 'public')))
 
 
 // Middleware para leer datos del formulario
 
-app.use(express.urlencoded({ extended: true }));
+index.use(express.urlencoded({ extended: true }));
 
-app.get('/status', (req, res) => {
+index.get('/status', (req, res) => {
     res.send({
         up: true
     });
 });
 
-app.post('/submit', async (req, res) => {
+index.post('/submit', async (req, res) => {
     const {
         'srA': srA,
         'mrS': mrS,
@@ -59,7 +60,7 @@ app.post('/submit', async (req, res) => {
 });
 
 // Nueva ruta para manejar la descarga de archivos
-app.get('/download', (req, res) => {
+index.get('/download', (req, res) => {
     const fileName = req.query.file; // Obtener el nombre del archivo desde la URL
     const filePath = path.join(__dirname, 'output', fileName);
 
@@ -71,6 +72,6 @@ app.get('/download', (req, res) => {
     });
 });
 
-app.listen(port, () => {
+index.listen(port, () => {
     console.log(`Running server on port ${port}`);
 });
