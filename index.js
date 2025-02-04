@@ -12,8 +12,8 @@ index.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Middleware para servir archivos estáticos
-//index.use(express.static(path.join(__dirname, 'public')))
+// Middleware para servir archivos estáticos (permite encontrar y servir styles.css)
+index.use(express.static(path.join(__dirname, 'public')))
 
 index.get('/status', (req, res) => {
     res.send({
