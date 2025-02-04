@@ -43,9 +43,10 @@ async function modifyPdf(sr, nameClient, fechaEs) {
     });   
 
     const pdfBytes = await pdfDoc.save();
-    fs.writeFileSync('./output/1. Bienvenida.pdf', pdfBytes);
+    const cleanName = nameClient.replace(/\s+/g, '');
+    fs.writeFileSync(`./output/Bienvenida${cleanName}.pdf`, pdfBytes);
 
-    console.log("PDF modificado y guardado en 'output/1. Bienvenida.pdf")
+    console.log("PDF modificado y guardado en 'output/1.Bienvenida.pdf")
 }
 
 module.exports = modifyPdf;
