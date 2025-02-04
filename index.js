@@ -13,7 +13,7 @@ index.get('/', (req, res) => {
 });
 
 // Middleware para servir archivos estáticos (permite encontrar y servir styles.css)
-index.use(express.static(path.join(__dirname, 'public')))
+index.use(express.static(path.join(process.cwd(), 'public')))
 
 index.get('/status', (req, res) => {
     res.send({
