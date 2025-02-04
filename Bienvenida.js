@@ -46,6 +46,7 @@ async function modifyPdf(sr, nameClient, fechaEs) {
     const pdfBytes = await pdfDoc.save();
     const cleanName = nameClient.replace(/\s+/g, '');
 
+    console.log("pdf creado pero no guardado")
     // save en carpeta temporal de vercel
     const tempFilePath = `tmp/Bienvenida${cleanName}.pdf`;
     fs.writeFileSync(tempFilePath, pdfBytes);
