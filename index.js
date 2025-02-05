@@ -5,7 +5,8 @@ const index = express()
 const port = process.env.PORT || 3000; // de forma local 3000, en vercel asignara un puerto
 
 const modifyPdf = require('./Bienvenida')
-const AcuerdoServicios = require('./AcuerdoServicios')
+const AcuerdoServicios = require('./AcuerdoServicios');
+const CertificaciondeVerdadCliente = require('./CertificaciondeVerdadCliente');
 
 // ruta para servir el index.html en pagina principal
 index.get('/', (req, res) => {
@@ -43,6 +44,7 @@ index.post('/submit', async (req, res) => {
     
     try {
         await modifyPdf(`${srA || mrS}`, name, fechaEs)
+        await CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, num, email)
         //await AcuerdoServicios(fechaEs, fechaEn, name) 
 
         const cleanName = name.replace(/\s+/g, '');
@@ -52,7 +54,7 @@ index.post('/submit', async (req, res) => {
         res.send(`
             <h2>PDF generado para: ${name}.</h2>
             <p><a href=/download?file=Bienvenida.pdf>Descargar Bienvenida ${name}</a></p>
-            <p><a href=/download?file=CertificacionDeVerdad.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
+            <p><a href=/download?file=CertificaciondeVerdadCliente.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
             <p><a href=/download?file=DeclaracionyCertificacion.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
             <p><a href=/download?file=AcuerdosDeServicio.pdf>Descargar AcuerdosDeServicio ${name}</a></p>
             <p><a href=/download?file=EsquemaPago.pdf>Descargar EsquemaPago ${name}</a></p>
@@ -69,8 +71,10 @@ index.post('/submit', async (req, res) => {
 // Nueva ruta para manejar la descarga de archivos
 index.get('/download', (req, res) => {
     const fileName = req.query.file; // Obtener el nombre del archivo desde la URL Ejemplo "Bienvenida.pdf"
-    //const filePath = path.join(process.cwd(), 'tmp', fileName); // buscar el pdf en tmp de disco local
-    const filePath = `/tmp/${fileName}`; // -> /tmp/Bienvenida.pdf  buscar el pdf en /tmp/ de vercel
+
+    // Cambio de local a vercel aqui
+    const filePath = path.join(process.cwd(), 'tmp', fileName); // buscar el pdf en tmp de disco local
+    //const filePath = `/tmp/${fileName}`; // -> /tmp/Bienvenida.pdf  buscar el pdf en /tmp/ de vercel
 
     res.download(filePath, fileName, (err) => {
         if (err) {
