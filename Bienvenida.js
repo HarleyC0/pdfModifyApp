@@ -48,8 +48,8 @@ async function modifyPdf(sr, nameClient, fechaEs) {
 
     console.log("pdf creado pero no guardado")
     // save en carpeta temporal de vercel
-    //const tempFilePath = path.join(process.cwd(), 'tmp', `Bienvenida${cleanName}.pdf`);
-    const tmpVercel = '/tmp/Bienvenida.pdf';
+    //const tempFilePath = path.join(process.cwd(), 'tmp', `Bienvenida${cleanName}.pdf`); // Guargado en tmp de disco local
+    const tmpVercel = '/tmp/Bienvenida.pdf'; // Guargado en /tmp/ de vercel
     fs.writeFileSync(tmpVercel, pdfBytes);
 
     console.log("PDF modificado y guardado en 'tmp/1.Bienvenida.pdf")

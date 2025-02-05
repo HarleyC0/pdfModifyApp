@@ -1,15 +1,19 @@
-1. tener una función que traiga los datos al back luego de un submit - Check
-2. empezar a llenar las funciones de PSF Lib con los datos
-    Doc1 Check
-    Doc2
-    Doc3
-    Doc4
-    Doc5
-    Doc6
-    Doc7
-    Doc8
+Pendientes:
 
-3.  funcion que descargue los documentos - Check
+empezar a llenar las funciones de PSF Lib con los datos
+    Check Doc1 Facil
+    Doc2 Facil
+    Doc3 Facil (Mover a la izq el espacio de la firma para nombres largos)
+    Doc4 Dificil (Hacer el documento completo)
+    Doc5 Dificil (hacer el documento completo o determinar buenos espacios para dibujar)
+    Doc6 Medio (se debe dubujar por completo los 2 primeros parrafos)
+    Doc7 Facil (para contratos estandar)
+    Doc8 Facil (El agente debe firmar externamente)
+
+
+Completadas:
+-   funcion que descargue los documentos - Check
     poner un link de descarga, estara en app js, en el try
-    
-Tarea: cambiar la ruta de 'tmp' a /tmp/ 
+-   cambiar la ruta de 'tmp' a /tmp/  - Check
+-   tener una función que traiga los datos al back luego de un submit - Check
+

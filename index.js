@@ -43,21 +43,22 @@ index.post('/submit', async (req, res) => {
     
     try {
         await modifyPdf(`${srA || mrS}`, name, fechaEs)
-        //await AcuerdoServicios(fechaEs, fechaEn, name)
-        // Meter aqui el link de "Descargar PDF"
+        //await AcuerdoServicios(fechaEs, fechaEn, name) 
+
         const cleanName = name.replace(/\s+/g, '');
-        //const downloadLink = `/download?file=Bienvenida${cleanName}.pdf`; // add
-        const downloadLink = `/download?file=Bienvenida.pdf`; // add
+
+        // Meter aqui el link de "Descargar PDF"
+        //const downloadLink = `/download?file=Bienvenida${cleanName}.pdf`; // para tener nombre en el pdf, puede ir directo en el link
         res.send(`
-            <h2>PDF generado para: ${cleanName}.</h2>
-            <p><a href=${downloadLink}>Descargar Bienvenida ${name}</a></p>
-            <p><a href=/download?file=CertificacionDeVerdad${cleanName}.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
-            <p><a href=/download?file=DeclaracionyCertificacion${cleanName}.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
-            <p><a href=/download?file=AcuerdosDeServicio${cleanName}.pdf>Descargar AcuerdosDeServicio ${name}</a></p>
-            <p><a href=/download?file=EsquemaPago${cleanName}.pdf>Descargar EsquemaPago ${name}</a></p>
-            <p><a href=/download?file=Pagare${cleanName}.pdf>Descargar Pagare ${name}</a></p>
-            <p><a href=/download?file=RenunciaResponsabilidad${cleanName}.pdf>Descargar RenunciaResponsabilidad ${name}</a></p>
-            <p><a href=/download?file=MetodosDePago${cleanName}.pdf>Descargar MetodosDePago ${name}</a></p>
+            <h2>PDF generado para: ${name}.</h2>
+            <p><a href=/download?file=Bienvenida.pdf>Descargar Bienvenida ${name}</a></p>
+            <p><a href=/download?file=CertificacionDeVerdad.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
+            <p><a href=/download?file=DeclaracionyCertificacion.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
+            <p><a href=/download?file=AcuerdosDeServicio.pdf>Descargar AcuerdosDeServicio ${name}</a></p>
+            <p><a href=/download?file=EsquemaPago.pdf>Descargar EsquemaPago ${name}</a></p>
+            <p><a href=/download?file=Pagare.pdf>Descargar Pagare ${name}</a></p>
+            <p><a href=/download?file=RenunciaResponsabilidad.pdf>Descargar RenunciaResponsabilidad ${name}</a></p>
+            <p><a href=/download?file=MetodosDePago.pdf>Descargar MetodosDePago ${name}</a></p>
         `)
     } catch (error) {
         console.log("Error generando el PDF", error)
@@ -67,9 +68,9 @@ index.post('/submit', async (req, res) => {
 
 // Nueva ruta para manejar la descarga de archivos
 index.get('/download', (req, res) => {
-    const fileName = req.query.file; // Obtener el nombre del archivo desde la URL
-    //const filePath = path.join(process.cwd(), 'tmp', fileName);
-    const filePath = `/tmp/${fileName}`;
+    const fileName = req.query.file; // Obtener el nombre del archivo desde la URL Ejemplo "Bienvenida.pdf"
+    //const filePath = path.join(process.cwd(), 'tmp', fileName); // buscar el pdf en tmp de disco local
+    const filePath = `/tmp/${fileName}`; // -> /tmp/Bienvenida.pdf  buscar el pdf en /tmp/ de vercel
 
     res.download(filePath, fileName, (err) => {
         if (err) {
