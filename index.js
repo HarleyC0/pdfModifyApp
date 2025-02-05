@@ -42,7 +42,7 @@ index.post('/submit', async (req, res) => {
     console.log(`Datos recibidos: Nombre ${name}, correo: ${email}`)
     
     try {
-        const BienvenidaPdfPeth = await modifyPdf(`${srA || mrS}`, name, fechaEs)
+        await modifyPdf(`${srA || mrS}`, name, fechaEs)
         //await AcuerdoServicios(fechaEs, fechaEn, name)
         // Meter aqui el link de "Descargar PDF"
         const cleanName = name.replace(/\s+/g, '');
