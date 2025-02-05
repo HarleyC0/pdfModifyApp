@@ -46,7 +46,8 @@ index.post('/submit', async (req, res) => {
         //await AcuerdoServicios(fechaEs, fechaEn, name)
         // Meter aqui el link de "Descargar PDF"
         const cleanName = name.replace(/\s+/g, '');
-        const downloadLink = `/download?file=Bienvenida${cleanName}.pdf`; // add
+        //const downloadLink = `/download?file=Bienvenida${cleanName}.pdf`; // add
+        const downloadLink = `/download?file=Bienvenida.pdf`; // add
         res.send(`
             <h2>PDF generado para: ${cleanName}.</h2>
             <p><a href=${downloadLink}>Descargar Bienvenida ${name}</a></p>
@@ -67,7 +68,8 @@ index.post('/submit', async (req, res) => {
 // Nueva ruta para manejar la descarga de archivos
 index.get('/download', (req, res) => {
     const fileName = req.query.file; // Obtener el nombre del archivo desde la URL
-    const filePath = path.join(process.cwd(), 'tmp', fileName);
+    //const filePath = path.join(process.cwd(), 'tmp', fileName);
+    const filePath = `/tmp/${fileName}`;
 
     res.download(filePath, fileName, (err) => {
         if (err) {
