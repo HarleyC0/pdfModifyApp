@@ -53,7 +53,7 @@ index.post('/submit', async (req, res) => {
         //const downloadLink = `/download?file=Bienvenida${cleanName}.pdf`; // para tener nombre en el pdf, puede ir directo en el link
         res.send(`
             <h2>PDF generado para: ${name}.</h2>
-            <p><a href=/download?file=Bienvenida.pdf>Descargar Bienvenida ${name}</a></p>
+            <p><a href=/download?file=Bienvenida${cleanName}.pdf>Descargar Bienvenida ${name}</a></p>
             <p><a href=/download?file=CertificaciondeVerdadCliente.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
             <p><a href=/download?file=DeclaracionyCertificacion.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
             <p><a href=/download?file=AcuerdosDeServicio.pdf>Descargar AcuerdosDeServicio ${name}</a></p>
@@ -73,8 +73,8 @@ index.get('/download', (req, res) => {
     const fileName = req.query.file; // Obtener el nombre del archivo desde la URL Ejemplo "Bienvenida.pdf"
 
     // Cambio de local a vercel aqui
-    const filePath = path.join(process.cwd(), 'tmp', fileName); // buscar el pdf en tmp de disco local
-    //const filePath = `/tmp/${fileName}`; // -> /tmp/Bienvenida.pdf  buscar el pdf en /tmp/ de vercel
+    //const filePath = path.join(process.cwd(), 'tmp', fileName); // buscar el pdf en tmp de disco local
+    const filePath = `/tmp/${fileName}`; // -> /tmp/Bienvenida.pdf  buscar el pdf en /tmp/ de vercel
 
     res.download(filePath, fileName, (err) => {
         if (err) {

@@ -51,7 +51,7 @@ async function modifyPdf(sr, nameClient, fechaEs) {
     // Cambio de local a vercel aqui
     //const tempFilePath = path.join(process.cwd(), 'tmp', `Bienvenida.pdf`); // Guargado en tmp de disco local
     //fs.writeFileSync(tempFilePath, pdfBytes);
-    const tmpVercel = '/tmp/Bienvenida.pdf'; // Guargado en /tmp/ de vercel
+    const tmpVercel = `/tmp/Bienvenida${cleanName}.pdf`; // Guargado en /tmp/ de vercel
     fs.writeFileSync(tmpVercel, pdfBytes);
 
     console.log("PDF modificado y guardado en 'tmp/Bienvenida.pdf")
