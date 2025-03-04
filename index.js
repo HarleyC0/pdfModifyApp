@@ -54,7 +54,7 @@ index.post('/submit', async (req, res) => {
         res.send(`
             <h2>PDF generado para: ${name}.</h2>
             <p><a href=/download?file=Bienvenida${cleanName}.pdf>Descargar Bienvenida ${name}</a></p>
-            <p><a href=/download?file=CertificaciondeVerdadCliente.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
+            <p><a href=/download?file=CertificaciondeVerdadCliente${cleanName}.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
             <p><a href=/download?file=DeclaracionyCertificacion.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
             <p><a href=/download?file=AcuerdosDeServicio.pdf>Descargar AcuerdosDeServicio ${name}</a></p>
             <p><a href=/download?file=EsquemaPago.pdf>Descargar EsquemaPago ${name}</a></p>

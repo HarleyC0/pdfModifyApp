@@ -43,6 +43,7 @@ async function modifyPdf(sr, nameClient, fechaEs) {
         color: rgb(0, 0, 0),
     });   
 
+    // guardar pdf en memoria
     const pdfBytes = await pdfDoc.save();
     const cleanName = nameClient.replace(/\s+/g, '');
 
