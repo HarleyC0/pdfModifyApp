@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000; // de forma local 3000, en vercel asignar
 const modifyPdf = require('./Bienvenida')
 const AcuerdoServicios = require('./AcuerdoServicios');
 const CertificaciondeVerdadCliente = require('./CertificaciondeVerdadCliente');
+const DeclaracionCertificacion = require('./DeclaracionCertificacion');
 
 // ruta para servir el index.html en pagina principal
 index.get('/', (req, res) => {
@@ -45,6 +46,7 @@ index.post('/submit', async (req, res) => {
     try {
         await modifyPdf(`${srA || mrS}`, name, fechaEs)
         await CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, num, email)
+        await DeclaracionCertificacion(fechaEs, name)
         //await AcuerdoServicios(fechaEs, fechaEn, name) 
 
         const cleanName = name.replace(/\s+/g, '');
@@ -55,7 +57,7 @@ index.post('/submit', async (req, res) => {
             <h2>PDF generado para: ${name}.</h2>
             <p><a href=/download?file=Bienvenida${cleanName}.pdf>Descargar Bienvenida ${name}</a></p>
             <p><a href=/download?file=CertificaciondeVerdadCliente${cleanName}.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
-            <p><a href=/download?file=DeclaracionyCertificacion.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
+            <p><a href=/download?file=DeclaracionyCertificaciondelPeticionario${cleanName}.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
             <p><a href=/download?file=AcuerdosDeServicio.pdf>Descargar AcuerdosDeServicio ${name}</a></p>
             <p><a href=/download?file=EsquemaPago.pdf>Descargar EsquemaPago ${name}</a></p>
             <p><a href=/download?file=Pagare.pdf>Descargar Pagare ${name}</a></p>
