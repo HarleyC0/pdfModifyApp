@@ -8,6 +8,7 @@ const modifyPdf = require('./Bienvenida')
 const AcuerdoServicios = require('./AcuerdoServicios');
 const CertificaciondeVerdadCliente = require('./CertificaciondeVerdadCliente');
 const DeclaracionCertificacion = require('./DeclaracionCertificacion');
+//const pagare = require('./pagare')
 
 // ruta para servir el index.html en pagina principal
 index.get('/', (req, res) => {
@@ -44,10 +45,11 @@ index.post('/submit', async (req, res) => {
     console.log(`Datos recibidos: Nombre ${name}, correo: ${email}`)
     
     try {
-        await modifyPdf(`${srA || mrS}`, name, fechaEs)
+        await modifyPdf(`${srA || mrS}`, name, fechaEs) 
         await CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, num, email)
         await DeclaracionCertificacion(fechaEs, name)
         //await AcuerdoServicios(fechaEs, fechaEn, name) 
+        //await pagare();
 
         const cleanName = name.replace(/\s+/g, '');
 
