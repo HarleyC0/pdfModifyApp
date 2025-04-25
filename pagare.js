@@ -236,25 +236,36 @@ async function pagare(name, fechaEs, dir1, dir2, num, email) {
         // generar pdf
         const pdfDoc = printer.createPdfKitDocument(docDefinition);
 
-        // direccion y nombre
-        const outputPath = path.join(__dirname, 'tmp', 'Pagare.pdf');
+        // Eliminar espacios en el nombre del cliente para usarlo añadido al nombre del pdf
+        const cleanName = name.replace(/\s+/g, '');
 
+        console.log("pdf pagare creado en memoria listo para guardar")
+
+        // ruta de almacenamiento y nombre
+        //const outputPathLocal = path.join(__dirname, 'tmp', `Pagare${cleanName}.pdf`); // ruta de Guardado en /tmp/ de local
+        const outputPathVercel = `/tmp/Pagare${cleanName}.pdf`; // ruta de Guardado en /tmp/ de vercel
+
+        // usa pipe para escribir el archivo 
+        //const writeStream = fs.createWriteStream(outputPathLocal);
+        const writeStream = fs.createWriteStream(outputPathVercel); // a ruta de vercel
+        pdfDoc.pipe(writeStream);
+        pdfDoc.end();
+        
+        // Esperar a que termine de escribir
         return new Promise((resolve, reject) => {
-            const writeStream = fs.createWriteStream(outputPath);
-
-            pdfDoc.pipe(writeStream);
-
-            pdfDoc.end();
-
-
-            writeStream.on('finish', () => {
-                resolve(outputPath); // Retornamos la ruta del archivo generado
-            });
-
-            writeStream.on('error', (err) => {
-                reject(err);
-            });
+          writeStream.on('finish', () => {
+              //console.log("PDF guardado exitosamente en local");
+              //resolve(outputPathLocal);
+              console.log("PDF guardado exitosamente en Vercel");
+              resolve(outputPathVercel);
+          });
+          
+          writeStream.on('error', (err) => {
+              console.error("Error al guardar el PDF:", err);
+              reject(err);
+          });
         });
+
     } catch (error) {
         console.error('Error en la generación del pagaré:', error);
         throw error;

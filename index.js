@@ -49,7 +49,7 @@ index.post('/submit', async (req, res) => {
         await CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, num, email)
         await DeclaracionCertificacion(fechaEs, name)
         //await AcuerdoServicios(fechaEs, fechaEn, name) 
-        //await pagare(name, fechaEs, dir1, dir2, num, email);
+        await pagare(name, fechaEs, dir1, dir2, num, email);
 
         const cleanName = name.replace(/\s+/g, '');
 
@@ -62,7 +62,7 @@ index.post('/submit', async (req, res) => {
             <p><a href=/download?file=DeclaracionyCertificaciondelPeticionario${cleanName}.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
             <p><a href=/download?file=AcuerdosDeServicio.pdf>Descargar AcuerdosDeServicio ${name}</a></p>
             <p><a href=/download?file=EsquemaPago.pdf>Descargar EsquemaPago ${name}</a></p>
-            <p><a href=/download?file=Pagare.pdf>Descargar Pagare ${name}</a></p>
+            <p><a href=/download?file=Pagare${cleanName}.pdf>Descargar Pagare ${name}</a></p>
             <p><a href=/download?file=RenunciaResponsabilidad.pdf>Descargar RenunciaResponsabilidad ${name}</a></p>
             <p><a href=/download?file=MetodosDePago.pdf>Descargar MetodosDePago ${name}</a></p>
         `)
