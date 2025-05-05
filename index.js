@@ -5,7 +5,7 @@ const index = express()
 const port = process.env.PORT || 3000; // de forma local 3000, en vercel asignara un puerto
 
 const modifyPdf = require('./Bienvenida')
-const AcuerdoServicios = require('./AcuerdoServicios');
+const acuerdosDeServicio = require('./acuerdosDeServicio');
 const CertificaciondeVerdadCliente = require('./CertificaciondeVerdadCliente');
 const DeclaracionCertificacion = require('./DeclaracionCertificacion');
 const pagare = require('./pagare')
@@ -48,19 +48,18 @@ index.post('/submit', async (req, res) => {
         await modifyPdf(`${srA || mrS}`, name, fechaEs) 
         await CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, num, email)
         await DeclaracionCertificacion(fechaEs, name)
-        //await AcuerdoServicios(fechaEs, fechaEn, name) 
+        await acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) 
         await pagare(name, fechaEs, dir1, dir2, num, email);
 
         const cleanName = name.replace(/\s+/g, '');
 
         // Meter aqui el link de "Descargar PDF"
-        //const downloadLink = `/download?file=Bienvenida${cleanName}.pdf`; // para tener nombre en el pdf, puede ir directo en el link
         res.send(`
             <h2>PDF generado para: ${name}.</h2>
             <p><a href=/download?file=Bienvenida${cleanName}.pdf>Descargar Bienvenida ${name}</a></p>
             <p><a href=/download?file=CertificaciondeVerdadCliente${cleanName}.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
             <p><a href=/download?file=DeclaracionyCertificaciondelPeticionario${cleanName}.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
-            <p><a href=/download?file=AcuerdosDeServicio.pdf>Descargar AcuerdosDeServicio ${name}</a></p>
+            <p><a href=/download?file=AcuerdosDeServicio${cleanName}.pdf>Descargar Acuerdos De Servicio ${name}</a></p>
             <p><a href=/download?file=EsquemaPago.pdf>Descargar EsquemaPago ${name}</a></p>
             <p><a href=/download?file=Pagare${cleanName}.pdf>Descargar Pagare ${name}</a></p>
             <p><a href=/download?file=RenunciaResponsabilidad.pdf>Descargar RenunciaResponsabilidad ${name}</a></p>

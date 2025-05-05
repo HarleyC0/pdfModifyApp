@@ -1,19 +1,30 @@
 Pendientes:
 
-empezar a llenar las funciones de PSF Lib con los datos
+Actualmente trabajando en acuerdo de servicios, en parrado 2 ingles
+
+1.crear las funciones de generacion PDF con los datos
+
+    falta completar con el form los datos que no existen:
+    Beneficiarios
+    Total
+    Inicial
+    # Cuotas
+    Monto de cuotas
+    Fechas de pago
+
     Check Doc1 Facil
     Check Doc2 Facil
     Check Doc3 Facil
-    Falta - Doc4 Dificil (Hacer el documento completo)
-    Falta - Doc5 Dificil (hacer el documento completo o determinar buenos espacios para dibujar)
+    Check Doc4 Dificil
+    
+    Falta - Doc5 Dificil 
     Negrillas y Subrayados - Doc6 Medio (se debe dibujar por completo los 2 primeros parrafos)
-    Falta - Doc7 Facil (para contratos estandar)
+    Falta - Doc7 Facil 
     Falta - Doc8 Facil (El agente debe firmar externamente)
 
+2. Modificar el form con las opciones necesarias y optimizar
 
-Completadas:
--   funcion que descargue los documentos - Check
-    poner un link de descarga, estara en app js, en el try
--   cambiar la ruta de 'tmp' a /tmp/  - Check
--   tener una función que traiga los datos al back luego de un submit - Check
+3. crear un mejor front
+
+
 
