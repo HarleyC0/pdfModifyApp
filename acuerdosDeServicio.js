@@ -589,7 +589,7 @@ async function acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) {
 
         // ruta de almacenamiento y nombre
         //const outputPathLocal = path.join(__dirname, 'tmp', `AcuerdosDeServicio${cleanName}.pdf`); // ruta de Guardado en /tmp/ de local
-        const outputPathVercel = `/tmp/Pagare${cleanName}.pdf`; // ruta de Guardado en /tmp/ de vercel
+        const outputPathVercel = `/tmp/AcuerdosDeServicio${cleanName}.pdf`; // ruta de Guardado en /tmp/ de vercel
 
         // usa pipe para escribir el archivo 
         //const writeStream = fs.createWriteStream(outputPathLocal);
