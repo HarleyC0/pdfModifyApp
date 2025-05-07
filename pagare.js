@@ -1,19 +1,22 @@
 const pdfmake = require('pdfmake');
 const fs = require('fs');
 const path = require('path');
+const { text } = require('stream/consumers');
 
 // Configurar las fuentes
 const fonts = {
-    Roboto: {
+    Arial: {
         normal: path.join(__dirname, 'public/fonts/02587_ARIALMT.ttf'),
-        bold: path.join(__dirname, 'public/fonts/02587_ARIALMT.ttf'),
-        italics: path.join(__dirname, 'public/fonts/02587_ARIALMT.ttf'),
-        bolditalics: path.join(__dirname, 'public/fonts/02587_ARIALMT.ttf')
+        bold: path.join(__dirname, 'public/fonts/ARIALBOLDMT.OTF'),
+        italics: path.join(__dirname, 'public/fonts/2248-font.ttf'), // Bold Italic
     }
 };
 
 // Exportar la función que genera y guarda el PDF
-async function pagare(name, fechaEs, dir1, dir2, num, email) {
+async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
+
+    const identified = srA == "Sr" ? "identificado" : "identificada";
+    console.log(srA)
 
     try {  
         // crear instancia de pdf make
@@ -23,7 +26,7 @@ async function pagare(name, fechaEs, dir1, dir2, num, email) {
         const docDefinition = {
 
             // Definir los márgenes de la página: [izquierda, arriba, derecha, abajo]
-            pageMargins: [72, 72, 72, 72],
+            pageMargins: [70, 120, 70, 120],
 
             content: [
                 { 
@@ -39,34 +42,61 @@ async function pagare(name, fechaEs, dir1, dir2, num, email) {
                     margin: [0, 0, 0, 55]
                 },
                 {
-                text: [`(${name})`, ' identificado(a) con Pasaporte No.  ID , de Pais, quien en adelante se llamará ', 'EL DEUDOR', ', debidamente entiende, reconoce y acepta el financiamiento que a su nombre proporcionará ', 'Migración Latina LLC', ' con el objeto cubrir los gastos de su proceso migratorio.'],
+                text: [
+                  {text: `(${name})`, bold: true, decoration: 'underline'}, 
+                  `${identified}`, 
+                  'con Pasaporte No.',
+                  {text: "EJA00112", bold: true}, 
+                  'de',
+                  `{Pais}`, 
+                  ', quien en adelante se llamará ', 
+                  {text: "EL DEUDOR", italics: true}, 
+                  ', debidamente entiende, reconoce y acepta el financiamiento que a su nombre proporcionará ', 
+                  {text: "Migración Latina LLC", bold: true}, 
+                  ' con el objeto cubrir los gastos de su proceso migratorio.'],
                 style: 'paragraph',
-                margin: [0, 0, 0, 15],
+                margin: [0, 0, 0, 20],
                 alignment: 'justify',
                 },
                 {
-                text: [`(${name})`, ' identified with Passport No. ID, from Pais, who hereinafter will be called ', 'THE DEBTOR', ', duly understands, acknowledges and accepts the financing that ', 'Migración Latina LLC', ' will provide on his/her behalf in order to cover the costs of his/her immigration process.'],
+                text: [
+                  {text: `(${name})`, bold: true, decoration: 'underline'}, 
+                  'identified with Passport No. ',
+                  {text: "EJA00112", bold: true}, 
+                  ' from ',
+                  `{Pais}`, 
+                  ', who hereinafter will be called ', 
+                  {text: "THE DEBTOR", italics: true}, 
+                  ', duly understands, acknowledges and accepts the financing that ', 
+                  {text: "Migración Latina LLC", bold: true}, 
+                  ' will provide on his/her behalf in order to cover the costs of his/her immigration process.'                  ],
                 style: 'paragraph',
-                margin: [0, 0, 0, 15],
+                margin: [0, 0, 0, 20],
                 alignment: 'justify',
                 },
                 {
-                text: ['PRIMERO. ', 'EL DEUDOR', ' pagará incondicionalmente y según lo pactado a través del ', 'Contrato', ' o de cualquier otro medio, un valor mensual hasta la totalidad del costo a financiar, según dicho ', 'Contrato', '.'],
+                text: [{text: 'PRIMERO.', bold:true}, {text: 'EL DEUDOR', italics:true}, 
+                ' pagará incondicionalmente y según lo pactado a través del ', 
+                {text: 'Contrato', bold:true}, 
+                ' o de cualquier otro medio, un valor mensual hasta la totalidad del costo a financiar, según dicho ', 
+                {text: 'Contrato.', bold:true}],
                 style: 'paragraph',
-                margin: [0, 0, 0, 15],
+                margin: [0, 0, 0, 20],
                 alignment: 'justify',
                 },
+
+                // conceptos
                 {
                 text: 'Valor por concepto de Capital Total a Financiar:',
                 bold: true,
-                margin: [0, 5, 0, 15]
+                margin: [0, 5, 0, 25]
                 },
                 {
                     ul: [
                       { text: `Financiamiento`, bold: true },
                       { text: `(Financiamiento USD)`, bold: true }
                     ],
-                    margin: [10, 0, 0, 10]
+                    margin: [15, 0, 0, 20]
                 },
                 {
                 text: 'Tiempo de Financiamiento (Pagos Mensuales):',
@@ -78,22 +108,26 @@ async function pagare(name, fechaEs, dir1, dir2, num, email) {
                 margin: [0, 0, 0, 20]
                 },
                 {
-                text: ['FIRST. ', 'THE DEBTOR', ' shall pay unconditionally and as agreed by telephone or through the ', 'Contract', ', a monthly value up to the total cost to be financed, according to the contract.'],
+                text: [{text: 'FIRST.', bold:true}, {text: 'THE DEBTOR', italics: true}, 
+                ' shall pay unconditionally and as agreed by telephone or through the ', 
+                {text: 'Contract', bold:true},
+                ', a monthly value up to the total cost to be financed, according to the', 
+                {text: 'Contract.', bold:true}],
                 style: 'paragraph',
-                margin: [0, 0, 0, 15],
+                margin: [0, 0, 0, 20],
                 alignment: 'justify',
                 },
                 {
                 text: 'Value for concept of Total Capital to Finance:',
                 bold: true,
-                margin: [0, 5, 0, 15]
+                margin: [0, 5, 0, 25]
                 },
                 {
                     ul: [
                       { text: `Financiamiento`, bold: true },
                       { text: `($Financiamiento USD)`, bold: true }
                     ],
-                    margin: [10, 0, 0, 10]
+                    margin: [15, 0, 0, 20]
                   },
                 {
                 text: 'Time of Financing (Monthly Payments):',
@@ -102,55 +136,105 @@ async function pagare(name, fechaEs, dir1, dir2, num, email) {
                 },
                 {
                 text: [`Months: `, { text: `Meses`, bold: true }],
+                margin: [0, 0, 0, 30]
+                },
+                {
+                text: [
+                  {text: 'SEGUNDO. ', bold:true}, 
+                  'Sobre la suma adeudada por concepto de Capital, ', 
+                  {text: 'EL DEUDOR', italics:true}, 
+                  ' reconocerá y aceptará cargos por mora de ', 
+                  {text: '$100.00', bold:true}, 
+                  ' USD a manera de penalidad cargado a su siguiente pago. De igual manera se cargará a la cuenta de ', 
+                  {text: 'EL DEUDOR', italics:true}, 
+                  ' la suma de ', 
+                  {text: '$50.00', bold:true}, 
+                  ' USD en el caso de que haya un cheque devuelto.'],
+                style: 'paragraph',
+                margin: [0, 0, 0, 20],
+                alignment: 'justify',
+                },
+                {
+                text: [
+                  {text: 'SECOND.', bold:true}, 
+                  ' On the amount owed for Principal, ', 
+                  {text: 'THE DEBTOR', italics:true}, 
+                  ' will acknowledge and accept late charges of ', 
+                  {text: '$100.00', bold:true}, 
+                  ' USD as a penalty charged to his next payment. ', 
+                  {text: 'THE DEBTOR', italics:true}, 
+                  ' account will also be charged the sum of  ', 
+                  {text: '$50.00', bold:true}, 
+                  ' USD in the event of a returned check.'                  
+                ],
+                style: 'paragraph',
+                margin: [0, 0, 0, 20],
+                alignment: 'justify',
+                },
+                {
+                text: [
+                  {text: 'TERCERO. ', bold: true}, {text: 'EL DEUDOR', italics: true}, 
+                  ' asume la totalidad de los gastos que ocasione la ejecución de esta ', 
+                  {text: 'Pagaré', bold: true}, 
+                  ', en caso de Cobro Jurídico.'],
+                style: 'paragraph',
+                margin: [0, 0, 0, 20],
+                alignment: 'justify',
+                },
+                {
+                text: [
+                  {text: 'THIRD. ', bold: true}, 
+                  {text: 'THE DEBTOR', italics: true}, 
+                  ' assumes all costs incurred in the enforcement of this ', 
+                  {text: 'Promissory Note', bold: true}, 
+                  ' in the event of legal collection.'],
+                style: 'paragraph',
+                margin: [0, 0, 0, 20],
+                alignment: 'justify',
+                },
+                {
+                text: [
+                  {text: 'CUARTO. ', bold: true}, 
+                  {text: 'EL DEUDOR', italics: true},
+                  ', en caso de tomar la decisión de no continuar con su proceso, reconoce que no lo exime y tiene la responsabilidad del pago total de la deuda a nuestra Compañía, entendiendo que nosotros ya hemos asumido el 100% del costo desde el inicio de su proceso.'],
+                style: 'paragraph',
                 margin: [0, 0, 0, 20]
                 },
                 {
-                text: ['SEGUNDO. ', 'Sobre la suma adeudada por concepto de Capital, ', 'EL DEUDOR', ' reconocerá y aceptará cargos por mora de ', '$100.00', ' USD a manera de penalidad cargado a su siguiente pago. De igual manera se cargará a la cuenta de ', 'EL DEUDOR', ' la suma de ', '$50.00', ' USD en el caso de que haya un cheque devuelto.'],
+                text: [
+                  {text: 'FOURTH. ', bold: true}, 
+                  {text: 'THE DEBTOR', italics: true}, 
+                  ', in the event that he/she decides not to continue with the process, acknowledges that this does not exempt him/her from, and he/she is responsible for the total payment of the debt to our Company, understanding that we have already assumed 100% of the cost from the beginning of the process.'],
+                style: 'paragraph',
+                margin: [0, 0, 0, 20],
+                alignment: 'justify',
+                },
+                {
+                text: [
+                  {text: 'Este Pagaré', bold:true},
+                  ', se diligencia de conformidad a las condiciones del ', 
+                  {text: 'Contrato', bold: true},
+                  'anexo, en ',
+                  {text: `${fechaEs}`, bold: true}
+                  ],
                 style: 'paragraph',
                 margin: [0, 0, 0, 15],
                 alignment: 'justify',
                 },
                 {
-                text: ['SECOND. ', 'On the amount owed for Principal, ', 'THE DEBTOR', ' will acknowledge and accept late charges of ', '$100.00', ' USD as a penalty charged to his next payment. ', 'THE DEBTOR', ' account will also be charged the sum of ', '$50.00', ' USD in the event of a returned check.'],
+                text: [
+                  {text: 'This Promissory Note', bold:true},
+                  ' is executed in accordance with the terms of the attached ', 
+                  {text: 'Contract', bold: true},
+                  ', on ',
+                  {text: `${fechaEs}`, bold: true}
+                ],
                 style: 'paragraph',
-                margin: [0, 0, 0, 15],
+                margin: [0, 0, 0, 60],
                 alignment: 'justify',
                 },
-                {
-                text: ['TERCERO. ', 'EL DEUDOR', ' asume la totalidad de los gastos que ocasione la ejecución de esta ', 'Pagaré', ', en caso de Cobro Jurídico.'],
-                style: 'paragraph',
-                margin: [0, 0, 0, 15],
-                alignment: 'justify',
-                },
-                {
-                text: ['THIRD. ', 'THE DEBTOR', ' assumes all costs incurred in the enforcement of this ', 'Promissory Note', ' in the event of legal collection.'],
-                style: 'paragraph',
-                margin: [0, 0, 0, 15],
-                alignment: 'justify',
-                },
-                {
-                text: ['CUARTO. ', 'EL DEUDOR', ', en caso de tomar la decisión de no continuar con su proceso, reconoce que no lo exime y tiene la responsabilidad del pago total de la deuda a nuestra Compañía, entendiendo que nosotros ya hemos asumido el 100% del costo desde el inicio de su proceso.'],
-                style: 'paragraph',
-                margin: [0, 0, 0, 15]
-                },
-                {
-                text: ['FOURTH. ', 'THE DEBTOR', ', in the event that he/she decides not to continue with the process, acknowledges that this does not exempt him/her from, and he/she is responsible for the total payment of the debt to our Company, understanding that we have already assumed 100% of the cost from the beginning of the process.'],
-                style: 'paragraph',
-                margin: [0, 0, 0, 15],
-                alignment: 'justify',
-                },
-                {
-                text: [`Este Pagaré, se diligencia de conformidad a las condiciones del Contrato anexo, en ${fechaEs}.`],
-                style: 'paragraph',
-                margin: [0, 0, 0, 15],
-                alignment: 'justify',
-                },
-                {
-                text: [`This Promissory Note is executed in accordance with the terms of the attached Contract, on ${fechaEs}.`],
-                style: 'paragraph',
-                margin: [0, 0, 0, 50],
-                alignment: 'justify',
-                },
+
+                // firma
                 {
                 text: '____________________________________',
                 margin: [0, 0, 0, 5]
@@ -178,7 +262,7 @@ async function pagare(name, fechaEs, dir1, dir2, num, email) {
                 {
                 text: email,
                 bold: true,
-                margin: [0, 0, 0, 30]
+                margin: [0, 0, 0, 40]
                 },
                 {
                 text: '_________________________________',
@@ -208,7 +292,7 @@ async function pagare(name, fechaEs, dir1, dir2, num, email) {
                 }
               },
               defaultStyle: {
-                font: 'Roboto'
+                font: 'Arial'
             }
         };
 

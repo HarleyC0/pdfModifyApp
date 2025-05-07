@@ -52,7 +52,7 @@ index.post('/submit', async (req, res) => {
         await DeclaracionCertificacion(fechaEs, name)
         await acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) 
         await anexo1(name, dir1, dir2, num, fechaEs, numCuotas)
-        await pagare(name, fechaEs, dir1, dir2, num, email);
+        await pagare(name, fechaEs, dir1, dir2, num, email, srA);
 
         const cleanName = name.replace(/\s+/g, '');
 
