@@ -16,7 +16,6 @@ const fonts = {
 async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
 
     const identified = srA == "Sr" ? "identificado" : "identificada";
-    console.log(srA)
 
     try {  
         // crear instancia de pdf make
@@ -295,27 +294,6 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                 font: 'Arial'
             }
         };
-
-        // NO FUNCIONA textos en negrita y subrayuados NO FUNCIONA
-        docDefinition.content.forEach(element => {
-            if (element.text && Array.isArray(element.text)) {
-              for (let i = 0; i < element.text.length; i++) {
-                if (typeof element.text[i] === 'string') {
-                  if (element.text[i] === 'EL DEUDOR' || element.text[i] === 'THE DEBTOR') {
-                    element.text[i] = { text: element.text[i], bold: true, italics: true };
-                  } else if (element.text[i] === 'Migración Latina LLC' || 
-                            element.text[i] === 'Contrato' || 
-                            element.text[i] === 'Contract' || 
-                            element.text[i] === 'Pagaré' || 
-                            element.text[i] === 'Promissory Note' ||
-                            element.text[i] === '$100.00' || 
-                            element.text[i] === '$50.00') {
-                    element.text[i] = { text: element.text[i], bold: true };
-                  }
-                }
-              }
-            }
-        });
 
         // generar pdf
         const pdfDoc = printer.createPdfKitDocument(docDefinition);
