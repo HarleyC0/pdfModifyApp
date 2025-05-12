@@ -131,11 +131,11 @@ async function renunciaResponsabilidad(name, fechaEs, dir1, dir2, num, email, sr
                       margin: [30, 0, 0, 0],
                       lineHeight: 1.1,
                     }
-                  ]
+                  ],
                 },
                 
                 // Separación entre versiones
-                { text: '', margin: [0, 20, 0, 20] },
+                { text: '', margin: [0, 0, 0, 0], pageBreak: 'after', },
                 
 
 

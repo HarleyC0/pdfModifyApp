@@ -11,7 +11,7 @@ const DeclaracionCertificacion = require('./DeclaracionCertificacion');
 const pagare = require('./pagare')
 const anexo1 = require('./anexo1');
 const renunciaResponsabilidad = require('./renunciaResponsabilidad');
-
+const metodosDePago = require('./metodosDePago');
 
 // ruta para servir el index.html en pagina principal
 index.get('/', (req, res) => {
@@ -56,6 +56,7 @@ index.post('/submit', async (req, res) => {
         await anexo1(name, dir1, dir2, num, fechaEs, numCuotas)
         await pagare(name, fechaEs, dir1, dir2, num, email, srA);
         await renunciaResponsabilidad(name, fechaEs, dir1, dir2, num, email, srA);
+        await metodosDePago(name, fechaEs, dir1, dir2, num, email, srA, nameAgent);
 
         const cleanName = name.replace(/\s+/g, '');
 
@@ -69,7 +70,7 @@ index.post('/submit', async (req, res) => {
             <p><a href=/download?file=EsquemaDePago${cleanName}.pdf>Descargar Esquema de Pago ${name}</a></p>
             <p><a href=/download?file=Pagare${cleanName}.pdf>Descargar Pagare ${name}</a></p>
             <p><a href=/download?file=RenunciaDeResponsabilidad${cleanName}.pdf>Descargar RenunciaResponsabilidad ${name}</a></p>
-            <p><a href=/download?file=MetodosDePago.pdf>Descargar MetodosDePago ${name}</a></p>
+            <p><a href=/download?file=MetodosDePago${cleanName}.pdf>Descargar MetodosDePago ${name}</a></p>
         `)
     } catch (error) {
         console.log("Error generando el PDF", error)

@@ -110,7 +110,7 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                 text: [{text: 'FIRST.', bold:true}, {text: 'THE DEBTOR', italics: true}, 
                 ' shall pay unconditionally and as agreed by telephone or through the ', 
                 {text: 'Contract', bold:true},
-                ', a monthly value up to the total cost to be financed, according to the', 
+                ', a monthly value up to the total cost to be financed, according to the ', 
                 {text: 'Contract.', bold:true}],
                 style: 'paragraph',
                 margin: [0, 0, 0, 20],
