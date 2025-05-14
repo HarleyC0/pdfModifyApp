@@ -13,7 +13,7 @@ const fonts = {
 };
 
 // Exportar la función que genera y guarda el PDF
-async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
+async function pagare(name, fechasArray, dir1, dir2, num, email, srA, pasaporte, pais, numCuotas, valorLetrasFinanciamientoEs, valorLetrasFinanciamientoEn, valorNumerosFinanciamiento) {
 
     const identified = srA == "Sr" ? "identificado" : "identificada";
 
@@ -44,10 +44,10 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                 text: [
                   {text: `(${name})`, bold: true, decoration: 'underline'}, 
                   `${identified}`, 
-                  'con Pasaporte No.',
-                  {text: "EJA00112", bold: true}, 
-                  'de',
-                  `{Pais}`, 
+                  'con Pasaporte No. ',
+                  {text: `${pasaporte}`, bold: true}, 
+                  ' de ',
+                  `${pais}`, 
                   ', quien en adelante se llamará ', 
                   {text: "EL DEUDOR", italics: true}, 
                   ', debidamente entiende, reconoce y acepta el financiamiento que a su nombre proporcionará ', 
@@ -61,9 +61,9 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                 text: [
                   {text: `(${name})`, bold: true, decoration: 'underline'}, 
                   'identified with Passport No. ',
-                  {text: "EJA00112", bold: true}, 
+                  {text: `${pasaporte}`, bold: true}, 
                   ' from ',
-                  `{Pais}`, 
+                  `${pais}`, 
                   ', who hereinafter will be called ', 
                   {text: "THE DEBTOR", italics: true}, 
                   ', duly understands, acknowledges and accepts the financing that ', 
@@ -92,8 +92,8 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                 },
                 {
                     ul: [
-                      { text: `Financiamiento`, bold: true },
-                      { text: `(Financiamiento USD)`, bold: true }
+                      { text: `${valorLetrasFinanciamientoEs} dólares americanos`, bold: true },
+                      { text: `(${valorNumerosFinanciamiento} USD)`, bold: true }
                     ],
                     margin: [15, 0, 0, 20]
                 },
@@ -103,7 +103,7 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                 margin: [0, 5, 0, 10]
                 },
                 {
-                text: [`Meses: `, { text: `Meses`, bold: true }],
+                text: ['Meses: ', { text: `${String(numCuotas).padStart(2, '0')}`, bold: true }],
                 margin: [0, 0, 0, 20]
                 },
                 {
@@ -123,8 +123,8 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                 },
                 {
                     ul: [
-                      { text: `Financiamiento`, bold: true },
-                      { text: `($Financiamiento USD)`, bold: true }
+                      { text: `${valorLetrasFinanciamientoEn} dollars`, bold: true },
+                      { text: `(${valorNumerosFinanciamiento} USD)`, bold: true }
                     ],
                     margin: [15, 0, 0, 20]
                   },
@@ -134,7 +134,7 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                 margin: [0, 5, 0, 10]
                 },
                 {
-                text: [`Months: `, { text: `Meses`, bold: true }],
+                text: ['Months: ', { text: `${String(numCuotas).padStart(2, '0')}`, bold: true }],
                 margin: [0, 0, 0, 30]
                 },
                 {
@@ -214,7 +214,7 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                   ', se diligencia de conformidad a las condiciones del ', 
                   {text: 'Contrato', bold: true},
                   'anexo, en ',
-                  {text: `${fechaEs}`, bold: true}
+                  {text: `${fechasArray[2]}`, bold: true}
                   ],
                 style: 'paragraph',
                 margin: [0, 0, 0, 15],
@@ -226,7 +226,7 @@ async function pagare(name, fechaEs, dir1, dir2, num, email, srA) {
                   ' is executed in accordance with the terms of the attached ', 
                   {text: 'Contract', bold: true},
                   ', on ',
-                  {text: `${fechaEs}`, bold: true}
+                  {text: `${fechasArray[2]}`, bold: true}
                 ],
                 style: 'paragraph',
                 margin: [0, 0, 0, 60],

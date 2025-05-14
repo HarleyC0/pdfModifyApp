@@ -9,6 +9,11 @@
 <body>
     <h1>Formulario para Contratos ML</h1>
     <form action="/submit" method="post" id="form-cliente">
+
+      <!-- Fecha -->
+      <label for="fecha">Fecha Mes/Dia/Año</label>
+      <input type="text" id="fecha" name="fecha" placeholder="Mes/Día/Año" required>
+
       <!-- Sr. o Sra. -->
       <label for="srA">Título (Sr. o Sra.)</label>
       <select id="srA" name="srA" required>
@@ -16,26 +21,10 @@
         <option value="Sr">Sr.</option>
         <option value="Sra">Sra.</option>
       </select>
-  
-      <!-- Mr o Ms -->
-      <label for="mrS">Título (Mr. o Ms.)</label>
-      <select id="mrS" name="mrS" required>
-        <option value="">Seleccione...</option>
-        <option value="Mr">Mr.</option>
-        <option value="Ms">Ms.</option>
-      </select>
-  
+
       <!-- Nombre APELLIDOS -->
       <label for="nombre-apellidos">Nombre y Apellidos</label>
-      <input type="text" id="name" name="name" placeholder="Nombre APELLIDOS" required>
-  
-      <!-- Fecha en Español -->
-      <label for="fecha-es">Fecha (Español)</label>
-      <input type="text" id="fechaEs" name="fechaEs" placeholder="Mes Día, 202X" required>
-  
-      <!-- Fecha en Inglés -->
-      <label for="fecha-en">Fecha (Inglés)</label>
-      <input type="text" id="fechaEn" name="fechaEn" placeholder="Month Day, 202X" required>
+      <input type="text" id="name" name="name" placeholder="Nombre APELLIDOS Cliente" required>
   
       <!-- Dirección Línea 1 -->
       <label for="direccion-linea-1">Dirección + Puerta</label>
@@ -43,7 +32,7 @@
   
       <!-- Dirección Línea 2 -->
       <label for="direccion-linea-2">Ciudad, Estado ZipCode</label>
-      <input type="text" id="dir2" name="dir2" placeholder="Ciudad, Estado ZipCode" required>
+      <input type="text" id="dir2" name="dir2" placeholder="Ciudad, ESTADO ZipCode" required>
   
       <!-- Número de Teléfono -->
       <label for="numero-telefono">Número de Teléfono</label>
@@ -52,19 +41,59 @@
       <!-- Correo Electrónico -->
       <label for="correo-electronico">Correo Electrónico</label>
       <input type="email" id="email" name="email" placeholder="Correo cliente" required>
+
+      <!-- Pais y pasaporte-->
+      <div class="pais-Pasaporte">
+        <label for="pais-Pasaporte">País y Pasaporte</label>
+        <input type="text" id="pais" name="pais" placeholder="País" required>
+        <input type="text" id="pasaporte" name="pasaporte" placeholder="Pasaporte" required>
+      </div>
+
+      <!-- Beneficiarios -->
+      <div class="beneficiarios-class">
+        <div >
+            <label for="numBeneficiarios">Número de Beneficiarios:</label>
+            <input type="number" id="numBeneficiarios" name="numBeneficiarios" min="0" max="10" value="0">
+        </div>
+        
+        <button type="button" id="generarCampos">Añadir Beneficiarios</button>
+        
+        <div id="beneficiariosFields"></div>      
+      </div>
   
       <!-- Nombre Agente -->
       <label for="nombre-agente">Nombre del Agente</label>
       <input type="text" id="nameAgent" name="nameAgent" placeholder="Nombre APELLIDOS" required>
 
-      <!-- Numero de cuotas -->
-       <label for="Numero-Cuotas">Número de cuotas</label>
-       <input type="number" id="numCuotas" name="numCuotas" placeholder="Número de cuotas" required>
-  
+      <!-- Monto Total e Inicial-->
+      <div class="total-Inicial">
+        <label for="total-Inicial">Pago Total y cuota Inicial</label>
+        <input type="text" id="pagoTotal" name="pagoTotal" placeholder="Total $X,XXX.00" required>
+        <input type="text" id="pagoInicial" name="pagoInicial" placeholder="Inicial $X,XXX.00" required>
+      </div>        
+       
+      <!-- Numero de cuotas y Monto de cuotas-->
+      <div class="cuotas-Monto">
+        <label for="Numero-Cuotas">Número de cuotas</label>
+        <input type="number" id="numCuotas" name="numCuotas" placeholder="Número de cuotas" required>
+        <input type="number" id="valorCuotas" name="valorCuotas" placeholder="Valor de cuota" required>
+      </div>
+
+      <!-- Financiamiento-->
+      <div class="financiamiento">
+        <label for="financiamiento">Financiamiento</label>
+        <input type="text" id="valorLetrasFinanciamientoEs" name="valorLetrasFinanciamientoEs" placeholder="Cuatro Mil" required>
+        <input type="text" id="valorLetrasFinanciamientoEn" name="valorLetrasFinanciamientoEn" placeholder="Four thousand" required>
+        <input type="text" id="valorNumerosFinanciamiento" name="valorNumerosFinanciamiento" placeholder="$X,XXX.00" required>
+      </div>      
+
+
       <!-- Botón de Enviar -->
       <button type="submit">Enviar</button>
     </form>
 
+    <!-- Scrip para beneficiarios-->
+     <script src="beneficiarios.js"></script>
 
 </body>
 </html>

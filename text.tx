@@ -1,29 +1,27 @@
 Pendientes:
 
-Actualmente trabajando en acuerdo de servicios, en parrado 2 ingles
+Completo 1.crear las funciones de generacion PDF con los datos
 
-1.crear las funciones de generacion PDF con los datos
+    completo: no necesita mas datos del punto 2
+    Check: la funcion ya sirve 
 
-    falta completar con el form los datos que no existen:
-    Beneficiarios
-    Total
-    Inicial
-    # Cuotas
-    Monto de cuotas
-    Fechas de pago
-    pais de origen
+    Completo Doc1 Bienvenida 
+    Completo Doc2 CertificaciondeVerdadCliente 
+    Completo Doc3 DeclaracionyCertificaciondelPeticionario 
+    Completo Doc4 AcuerdosDeServicio 
+    Completo Doc5 EsquemaDePago (Extra: Definir diferentes dias de fecha de pago)
+    Completo Doc6 Pagare (falta 2.4 , 2.5 , Valores a financiar funcion, meses por # de cuotas)
+    Completo Doc7 RenunciaDeResponsabilidad (falta 2.3 , 2.4)
+    Completo Doc8 MetodosDePago
 
-    Check Doc1 Facil
-    Check Doc2 Facil
-    Check Doc3 Facil
-    Check Doc4 Dificil
-    Check Doc5 Dificil (Extra: Definir diferentes dias de fecha de pago)
-    Check Doc6 Medio
-    Check Doc7 Facil
-     
-    Falta - Doc8 Facil (El agente debe firmar externamente)
+Completo 2. Modificar el form con las opciones necesarias y optimizar
 
-2. Modificar el form con las opciones necesarias y optimizar
+    Listo: Debe entrar una fecha en formato mes/dia/año y poder usarse en diferentes formas (texto español, texto ingles)
+    Listo: Añadir espacio para Beneficiarios, incluso mas de 1
+    Listo: pago total, pago inicial 
+    Listo: numero y monto de cuotas 
+    Listo: pasaporte y pais
+    Listo: Optimizar Sr y Mr
 
 3. crear un mejor front
 

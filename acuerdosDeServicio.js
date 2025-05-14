@@ -15,7 +15,31 @@ const fonts = {
 };
 
 // Exportar la función que genera y guarda el PDF
-async function acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) {
+async function acuerdosDeServicio(fechasArray, name, dir1, dir2, num, email, beneficiarios, pagoTotal, pagoInicial, numCuotas, valorCuotas) {
+
+    const fechaNumeros = fechasArray[2]; 
+    function calcularFechaFinal(fechaNumeros, numCuotas) {
+      const [mes, dia, aaaa] = fechaNumeros.split('/').map(Number);
+      const fechaInicial = new Date(aaaa, mes - 1, dia);
+      console.log(mes, dia, aaaa)
+      const fechas = [];
+
+      for (let i = 1; i <= numCuotas; i++) {
+          const fecha = new Date(fechaInicial);
+          fecha.setMonth(fecha.getMonth() + i); // Añadir i meses
+          console.log(fecha)
+          
+          const nuevoMM = String(fecha.getMonth() + 1).padStart(2, '0');
+          const nuevoDD = String(dia).padStart(2, '0'); // Mantener el día original
+          const nuevoAAAA = fecha.getFullYear();
+          
+          fechas.push(`${nuevoMM}/${nuevoDD}/${nuevoAAAA}`);
+      }      
+
+      return fechas[numCuotas-1];
+    }
+
+    const fechaFinal = calcularFechaFinal(fechaNumeros, numCuotas)
 
     try {  
         // crear instancia de pdf make
@@ -60,13 +84,13 @@ async function acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) {
 
                 // Titulos
                 { 
-                  text: `${fechaEs}`, 
+                  text: `${fechasArray[0]}`, 
                   bold: true,
                   alignment: 'right',
                   margin: [0, 0, 0, 0]
                 },
                 { 
-                  text: `${fechaEs}`, 
+                  text: `${fechasArray[1]}`, 
                   bold: true,
                   alignment: 'right',
                   margin: [0, 0, 0, 30]
@@ -109,18 +133,15 @@ async function acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) {
                   alignment: 'left',
                   margin: [0, 0, 0, 15]
                 },
-                { 
-                  text: `Beneficiarios: Nombres APELLIDOS - Parentesco`, 
+
+                // Beneficiarios
+                ...beneficiarios.map(beneficiario => ({
+                  text: `${beneficiario.nombre}`,
                   bold: true,
                   alignment: 'left',
-                  margin: [0, 0, 0, 0]
-                },
-                { 
-                  text: `Beneficiary: Nombres APELLIDOS - Relationship`, 
-                  bold: true,
-                  alignment: 'left',
-                  margin: [0, 0, 0, 30]
-                },
+                  margin: [0, 0, 0, 0]                      
+                })),
+                { text: "", margin: [0, 10, 0, 20]},
 
                 // Cuerpo
                 { 
@@ -157,9 +178,9 @@ async function acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) {
                     // 2
                     { text: ["_____", { text: "EL CLIENTE ", italics: true }, 
                       'acuerda pagar por esta representación la suma de ',
-                      { text: `$X,XXX.00`, bold: true },
+                      { text: `${pagoTotal}`, bold: true },
                       ' USD a Migración Latina LLC, los cuales no serán reembolsables. En ese sentido, ',
-                      { text: `EL CLIENTE`, bold: true },
+                      { text: `EL CLIENTE `, bold: true },
                       'se compromete a pagar de la siguiente manera (Anexo I. Esquema de Pagos):'
                       ],
                       counter: 2, 
@@ -171,22 +192,22 @@ async function acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) {
                         ol: [
                             { text: [
                                 "Un pago inicial de ", 
-                                { text: `$X,XXX.00 `, bold: true}, 
-                                "USD el día ", 
-                                { text:`XX/XX/202X.`, bold: true}
+                                { text: `${pagoInicial}`, bold: true}, 
+                                " USD el día ", 
+                                { text:`${fechasArray[2]}`, bold: true}
                                 ],
                               counter: 1, 
                               margin: [20, 0, 0, 5],
                               alignment: 'justify'
                             },
                             { text: [
-                                { text: `XX `, bold: true},
+                                { text: `${String(numCuotas).padStart(2, '0')}`, bold: true},
                                 "cuotas de ", 
-                                { text: `$XXX.00 `, bold: true}, 
+                                { text: `$${valorCuotas}.00`, bold: true}, 
                                 "USD cada una que serán canceladas consecutivamente los ", 
-                                { text:`XX `, bold: true},
+                                { text:`${fechasArray[3]}`, bold: true},
                                 "de cada mes, con fecha final de pago en ",
-                                {text: `XX/XX/202X.`, bold: true}
+                                {text: `${fechaFinal}.`, bold: true}
                                 ],
                               counter: 2, 
                               margin: [20, 0, 0, 20],
@@ -214,7 +235,7 @@ async function acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) {
                     },
                     { text: ["_____", { text: "THE CLIENT ", italics: true }, 
                       'agrees to pay for this representation the sum of ',
-                      { text: `$X,XXX.00`, bold: true },
+                      { text: `${pagoTotal}`, bold: true },
                       ' USD to Migracion Latina LLC, which will not be refundable. In this regard, ',
                       { text: "THE CLIENT ", bold: true },
                       'agrees to pay as follows (Annex I. Payment Schedule):'
@@ -228,22 +249,22 @@ async function acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) {
                         ol: [
                             { text: [
                                 "An initial payment of ", 
-                                { text: `$X,XXX.00 `, bold: true}, 
-                                "USD on ", 
-                                { text:`XX/XX/202X.`, bold: true}
+                                { text: `${pagoInicial}`, bold: true}, 
+                                " USD on ", 
+                                { text:`${fechasArray[2]}`, bold: true}
                                 ],
                               counter: 1, 
                               margin: [20, 0, 0, 5],
                               alignment: 'justify'
                             },
                             { text: [
-                                { text: `XX `, bold: true},
-                                "installments of ", 
-                                { text: `$XXX.00 `, bold: true}, 
-                                "USD each to be paid consecutively on the ", 
-                                { text:`XX `, bold: true},
-                                "of each month with final date of payment on ",
-                                {text: `XX/XX/202X.`, bold: true}
+                                { text: `${String(numCuotas).padStart(2, '0')}`, bold: true},
+                                " installments of ", 
+                                { text: `$${valorCuotas}.00`, bold: true}, 
+                                " USD each to be paid consecutively on the ", 
+                                { text:`${fechasArray[3]}`, bold: true},
+                                " of each month with final date of payment on ",
+                                {text: `${fechaFinal}.`, bold: true}
                                 ],
                               counter: 2, 
                               margin: [20, 0, 0, 20],

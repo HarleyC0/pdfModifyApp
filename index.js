@@ -5,13 +5,14 @@ const index = express()
 const port = process.env.PORT || 3000; // de forma local 3000, en vercel asignara un puerto
 
 const modifyPdf = require('./Bienvenida')
-const acuerdosDeServicio = require('./acuerdosDeServicio');
 const CertificaciondeVerdadCliente = require('./CertificaciondeVerdadCliente');
 const DeclaracionCertificacion = require('./DeclaracionCertificacion');
+const acuerdosDeServicio = require('./acuerdosDeServicio');
 const pagare = require('./pagare')
 const anexo1 = require('./anexo1');
 const renunciaResponsabilidad = require('./renunciaResponsabilidad');
 const metodosDePago = require('./metodosDePago');
+const formatofecha = require('./fechasFormato');
 
 // ruta para servir el index.html en pagina principal
 index.get('/', (req, res) => {
@@ -33,30 +34,55 @@ index.use(express.urlencoded({ extended: true }));
 
 
 index.post('/submit', async (req, res) => {
+
+
+    
     const {
         'srA': srA,
-        'mrS': mrS,
         'name': name,
-        'fechaEs': fechaEs,
-        'fechaEn': fechaEn,
+        'fecha': fecha,
         'dir1': dir1,
         'dir2': dir2,
         'num': num,
         'email': email,
+        'pais': pais,
+        'pasaporte': pasaporte,
         'nameAgent': nameAgent,
+        'pagoTotal': pagoTotal,
+        'pagoInicial': pagoInicial,
         'numCuotas': numCuotas,
-        } = req.body;
+        'valorCuotas': valorCuotas,
+        'valorLetrasFinanciamientoEs': valorLetrasFinanciamientoEs,
+        'valorLetrasFinanciamientoEn': valorLetrasFinanciamientoEn,
+        'valorNumerosFinanciamiento': valorNumerosFinanciamiento,
+        'numBeneficiarios' : numBeneficiarios,
+    } = req.body;
     console.log(`Datos recibidos: Nombre ${name}, correo: ${email}`)
     
+    // Para campos dinámicos, accede directamente a req.body
+    const beneficiarios = [];
+    const numBeneficiariosInt = 2*parseInt(numBeneficiarios);
+
+    for (let i = 1; i <= numBeneficiariosInt; i++) {
+        const nombreBeneficiario = req.body[`nombreBeneficiario${i}`];
+        
+        if (nombreBeneficiario) {
+            beneficiarios.push({
+                nombre: nombreBeneficiario
+            });
+        }
+    }
+
     try {
-        await modifyPdf(`${srA || mrS}`, name, fechaEs) 
-        await CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, num, email)
-        await DeclaracionCertificacion(fechaEs, name)
-        await acuerdosDeServicio(fechaEs, name, dir1, dir2, num, email) 
-        await anexo1(name, dir1, dir2, num, fechaEs, numCuotas)
-        await pagare(name, fechaEs, dir1, dir2, num, email, srA);
-        await renunciaResponsabilidad(name, fechaEs, dir1, dir2, num, email, srA);
-        await metodosDePago(name, fechaEs, dir1, dir2, num, email, srA, nameAgent);
+        const fechasArray = formatofecha(fecha)
+        await modifyPdf(srA, name, fechasArray) 
+        await CertificaciondeVerdadCliente(fechasArray, name, dir1, dir2, num, email)
+        await DeclaracionCertificacion(fechasArray, name)
+        await acuerdosDeServicio(fechasArray, name, dir1, dir2, num, email, beneficiarios, pagoTotal, pagoInicial, numCuotas, valorCuotas) 
+        await anexo1(name, email, dir1, dir2, num, fechasArray, numCuotas, pagoTotal, pagoInicial)
+        await pagare(name, fechasArray, dir1, dir2, num, email, srA, pasaporte, pais, numCuotas, valorLetrasFinanciamientoEs, valorLetrasFinanciamientoEn, valorNumerosFinanciamiento);
+        await renunciaResponsabilidad(name, fechasArray, dir1, dir2, num, email, srA, pagoTotal, numCuotas, valorCuotas);
+        await metodosDePago(name, fechasArray, dir1, dir2, num, email, srA, nameAgent);
 
         const cleanName = name.replace(/\s+/g, '');
 

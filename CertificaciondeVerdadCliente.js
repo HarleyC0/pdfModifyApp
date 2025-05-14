@@ -7,7 +7,7 @@ const fontBytes = fs.readFileSync(fontPath);
 
 
 
-async function CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, num, email) {
+async function CertificaciondeVerdadCliente(fechasArray, name, dir1, dir2, num, email) {
     // cargar pdf referencia
     const pdfDoc = await PDFDocument.load(fs.readFileSync(path.join(process.cwd(), 'public', 'pdfs', 'CertificaciondeVerdadCliente.pdf')));
 
@@ -27,7 +27,7 @@ async function CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, 
     const lineHeight = fontSize * 1.2; // Espaciado entre líneas (20% más que el tamaño de la fuente)
     let yPosition = height - 100; // Posición inicial en la parte superior
 
-    firstPage.drawText(fechaEs, {
+    firstPage.drawText(fechasArray[0], {
         x: marginLeft,
         y: yPosition,
         size: fontSize,
@@ -36,7 +36,7 @@ async function CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, 
     });  
     yPosition -= lineHeight;
 
-    firstPage.drawText(fechaEn, {
+    firstPage.drawText(fechasArray[1], {
         x: marginLeft,
         y: yPosition,
         size: fontSize,
@@ -98,7 +98,7 @@ async function CertificaciondeVerdadCliente(fechaEs, fechaEn, name, dir1, dir2, 
     console.log("pdf certificaciondeverdadcliente creado en memoria listo para guardar")
 
     // Cambio de local a vercel aqui
-    //const tempFilePath = path.join(process.cwd(), 'tmp', `CertificaciondeVerdadCliente.pdf`); // Guargado en tmp de disco local
+    //const tempFilePath = path.join(process.cwd(), 'tmp', `CertificaciondeVerdadCliente${cleanName}.pdf`); // Guargado en tmp de disco local
     //fs.writeFileSync(tempFilePath, pdfBytes);
     const tmpVercel = `/tmp/CertificaciondeVerdadCliente${cleanName}.pdf`; // Guargado en /tmp/ de vercel
     fs.writeFileSync(tmpVercel, pdfBytes);

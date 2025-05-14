@@ -13,7 +13,7 @@ const fonts = {
 };
 
 // Exportar la función que genera y guarda el PDF
-async function renunciaResponsabilidad(name, fechaEs, dir1, dir2, num, email, srA) {
+async function renunciaResponsabilidad(name, fechasArray, dir1, dir2, num, email, srA, pagoTotal, numCuotas, valorCuotas) {
 
     const identified = srA == "Sr" ? ["Sr.", "Mr."] : ["Sra.", "Ms."];
 
@@ -45,7 +45,7 @@ async function renunciaResponsabilidad(name, fechaEs, dir1, dir2, num, email, sr
 
             content: [
                 // Fecha en español
-                { text: `${fechaEs}`, margin: [0, 0, 0, 10], bold: true },
+                { text: `${fechasArray[0]}`, margin: [0, 0, 0, 10], bold: true },
                 
                 // Destinatario en español
                 { text: `${identified[0]}`, margin: [0, 5, 0, 0], bold: true },
@@ -63,11 +63,11 @@ async function renunciaResponsabilidad(name, fechaEs, dir1, dir2, num, email, sr
                     {text: 'Migración Latina LLC hará uso de todos sus esfuerzos éticos, legales y profesionales para llevar su caso, pero responsablemente no podemos garantizarle un resultado determinado, pues esto será siempre a decisión de una autoridad migratoria.', alignment: 'justify',},
                     { text: [
                         'El costo de su proceso es de ',
-                        { text: '$[X,XXX].00 USD', bold: true },
+                        { text: `${pagoTotal} USD`, bold: true },
                         ' y tendrá ',
-                        { text: '[XX]', bold: true },
+                        { text: `${String(numCuotas).padStart(2, '0')}`, bold: true },
                         ' cuotas de ',
-                        { text: '$[XXX].00 USD', bold: true },
+                        { text: `$${valorCuotas}.00 USD`, bold: true },
                         ' cada una.'
                       ],
                       alignment: 'justify',
@@ -142,7 +142,7 @@ async function renunciaResponsabilidad(name, fechaEs, dir1, dir2, num, email, sr
 
                 // Versión en inglés
                 // Fecha 
-                { text: `${fechaEs}`, margin: [0, 0, 0, 10], bold: true },
+                { text: `${fechasArray[1]}`, margin: [0, 0, 0, 10], bold: true },
                 
                 // Destinatario 
                 { text: `${identified[1]}`, margin: [0, 5, 0, 0], bold: true },
@@ -160,11 +160,11 @@ async function renunciaResponsabilidad(name, fechaEs, dir1, dir2, num, email, sr
                     {text: 'Migracion Latina LLC will use all its ethical, legal and professional efforts to handle your case, but responsibly we cannot guarantee a particular outcome, as this will always be at the discretion of an immigration authority.', alignment: 'justify'},
                     { text: [
                         'The cost of your process is ',
-                        { text: '$[X,XXX].00 USD', bold: true },
+                        { text: `${pagoTotal} USD`, bold: true },
                         ' and you will have ',
-                        { text: '[XX]', bold: true },
+                        { text: `${String(numCuotas).padStart(2, '0')}`, bold: true },
                         ' installments of ',
-                        { text: '$[XXX].00 USD', bold: true },
+                        { text: `$${valorCuotas}.00 USD`, bold: true },
                         ' each one.'
                       ],
                       alignment: 'justify'

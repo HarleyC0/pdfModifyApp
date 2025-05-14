@@ -14,10 +14,12 @@ const fonts = {
 
 
 //añadir total, inicial, cuotas
-async function anexo1(name, dir1, dir2, num, fechaEs, numCuotas, email) {
+async function anexo1(name, email, dir1, dir2, num, fechasArray, numCuotas, pagoTotal, pagoInicial) {
 
-    function generarFechasMensuales(fechaEs, numCuotas) {
-        const [mm, dd, aaaa] = fechaEs.split('/').map(Number);
+    const fechaNumeros = fechasArray[2];
+
+    function generarFechasMensuales(fechaNumeros, numCuotas) {
+        const [mm, dd, aaaa] = fechaNumeros.split('/').map(Number);
         const fechaInicio = new Date(aaaa, mm - 1, dd); 
         const fechas = [];
     
@@ -34,7 +36,7 @@ async function anexo1(name, dir1, dir2, num, fechaEs, numCuotas, email) {
     
         return fechas;
     }
-    const fechasCuotas = generarFechasMensuales(fechaEs, numCuotas);
+    const fechasCuotas = generarFechasMensuales(fechaNumeros, numCuotas);
     const cuotas = [];
     for (let index = 0; index < numCuotas; index++) {
         const cuota = { cuota: index+1, fecha: fechasCuotas[index], valor: 500};
@@ -97,7 +99,7 @@ async function anexo1(name, dir1, dir2, num, fechaEs, numCuotas, email) {
                         },
                         { 
                         width: 'auto', 
-                        text: [ {text: "Fecha:", bold:true}, `${fechaEs}`],
+                        text: [ {text: "Fecha:", bold:true}, `${fechasArray[2]}`],
                         alignment: 'right',
                         margin: [0, 0, 0, 20]
                         }
@@ -114,9 +116,9 @@ async function anexo1(name, dir1, dir2, num, fechaEs, numCuotas, email) {
                     text: ["A continuación, nos permitimos emitir el esquema de pago por concepto de ",
                         {text: "SOLICITUD DE ASILO", bold: true},
                         ", por valor de ",
-                        {text: "$X,XXX.00 Total", bold: true},
-                        "dólares, con un pago inicial de ",
-                        {text: "$X,XXX.00 Inicial ", bold: true},
+                        {text: `${pagoTotal}`, bold: true},
+                        " dólares, con un pago inicial de ",
+                        {text: `${pagoInicial}`, bold: true},
                         "dólares, y su respectivo saldo distribuidos en cuotas mensuales como se relaciona a continuación:"
                     ],
                     alignment: 'justify',
@@ -128,7 +130,6 @@ async function anexo1(name, dir1, dir2, num, fechaEs, numCuotas, email) {
                     style: 'tableExample',
                     table: {
                         widths: [100, 180, '*'],
-                        //headerRows: 2,
                         body: [
                             // header
                             [
@@ -138,15 +139,15 @@ async function anexo1(name, dir1, dir2, num, fechaEs, numCuotas, email) {
                             ],
                             [
                             {text: 'PAGO INICIAL', bold: true, alignment: 'left'}, 
-                            {text: `${fechaEs}`, alignment: 'left'}, 
-                            {text: '$1,000.00', alignment: 'left'}
+                            {text: `${fechasArray[2]}`, alignment: 'left'}, 
+                            {text: `${pagoInicial}`, alignment: 'left'}
                             ],                            
                             ...cuotas.map(cuota => [
                                 { text: `${cuota.cuota.toString()}`, bold: true}, // Columna 1
                                 cuota.fecha,            // Columna 2
                                 `$${cuota.valor.toFixed(2)}` // Columna 3 (formato USD)
                             ]),
-                            [{text: 'TOTAL', alignment: 'right', colSpan: 2, bold: true},'',{text: `$5,000.00`, bold: true}],
+                            [{text: 'TOTAL', alignment: 'right', colSpan: 2, bold: true},'',{text: `${pagoTotal}`, bold: true}],
                         ]
                     }
                 },  

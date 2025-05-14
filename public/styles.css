@@ -42,4 +42,49 @@ button {
   
 button:hover {
     background-color: #0056b3;
-  }
+}
+
+.beneficiarios-class, .cuotas-Monto, .total-Inicial, .pais-Pasaporte, .financiamiento {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.beneficiarios-class > div {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.beneficiarios-class label {
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+.beneficiarios-class input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 60px;
+}
+
+.beneficiarios-class button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.beneficiarios-class button:hover {
+    background-color: #45a049;
+}
+
+#beneficiariosFields {
+    margin-top: 15px;
+}
+

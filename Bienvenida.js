@@ -1,15 +1,17 @@
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib')
 const fontkit = require('@pdf-lib/fontkit')
 const fs = require('fs')
-// direccion a fuente
-//const fontBytes = fs.readFileSync('./fonts/ARIALBOLDMT.OTF')
 const path = require('path');
 const fontPath = path.join(process.cwd(), 'public', 'fonts', 'ARIALBOLDMT.OTF');
 const fontBytes = fs.readFileSync(fontPath);
 
 
 
-async function modifyPdf(sr, nameClient, fechaEs) {
+
+async function modifyPdf(sr, nameClient, fechasArray) {
+
+    const identified = srA == "Sr" ? ["Sr.", "Mr."] : ["Sra.", "Ms."];
+
     //const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfs/Bienvenida.pdf'));
     const pdfDoc = await PDFDocument.load(fs.readFileSync(path.join(process.cwd(), 'public', 'pdfs', 'Bienvenida.pdf')));
 
@@ -19,7 +21,7 @@ async function modifyPdf(sr, nameClient, fechaEs) {
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
   
-    firstPage.drawText(sr, {
+    firstPage.drawText(identified[1], {
         x: 72,
         y: 552,
         size: 12,
@@ -35,7 +37,7 @@ async function modifyPdf(sr, nameClient, fechaEs) {
         color: rgb(0, 0, 0),
     });
 
-    firstPage.drawText(fechaEs, {
+    firstPage.drawText(fechasArray[0], {
         x: 72,
         y: 620,
         size: 12,
@@ -50,7 +52,7 @@ async function modifyPdf(sr, nameClient, fechaEs) {
     console.log("pdf Bienvenida creado en memoria listo para guardar")
 
     // Cambio de local a vercel aqui
-    //const tempFilePath = path.join(process.cwd(), 'tmp', `Bienvenida.pdf`); // Guargado en tmp de disco local
+    //const tempFilePath = path.join(process.cwd(), 'tmp', `Bienvenida${cleanName}.pdf`); // Guargado en tmp de disco local
     //fs.writeFileSync(tempFilePath, pdfBytes);
     const tmpVercel = `/tmp/Bienvenida${cleanName}.pdf`; // Guargado en /tmp/ de vercel
     fs.writeFileSync(tmpVercel, pdfBytes);

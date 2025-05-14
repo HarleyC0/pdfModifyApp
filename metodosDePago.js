@@ -13,7 +13,7 @@ const fonts = {
     }
 };
 
-async function metodosDePago(name, fechaEs, dir1, dir2, num, email, srA, nameAgent) {
+async function metodosDePago(name, fechasArray, dir1, dir2, num, email, srA, nameAgent) {
 
     const identified = srA == "Sr" ? ["Sr.", "Mr."] : ["Sra.", "Ms."];
 
@@ -45,7 +45,7 @@ async function metodosDePago(name, fechaEs, dir1, dir2, num, email, srA, nameAge
             
             content: [
                 // Fecha en español
-                { text: `${fechaEs}`, bold: true, margin: [0, 0, 0, 15] },
+                { text: `${fechasArray[0]}`, bold: true, margin: [0, 0, 0, 15] },
                 
                 // Datos del cliente en español
                 {
@@ -178,7 +178,7 @@ async function metodosDePago(name, fechaEs, dir1, dir2, num, email, srA, nameAge
 
                 
                 // Fecha en inglés
-                { text: `${fechaEs}`, bold: true, margin: [0, 0, 0, 5] },
+                { text: `${fechasArray[1]}`, bold: true, margin: [0, 0, 0, 5] },
                 
                 // Datos del cliente en inglés
                 {
