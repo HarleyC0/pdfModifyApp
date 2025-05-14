@@ -8,7 +8,7 @@ const fontBytes = fs.readFileSync(fontPath);
 
 
 
-async function modifyPdf(sr, nameClient, fechasArray) {
+async function modifyPdf(srA, name, fechasArray) {
 
     const identified = srA == "Sr" ? ["Sr.", "Mr."] : ["Sra.", "Ms."];
 
