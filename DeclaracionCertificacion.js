@@ -52,10 +52,10 @@ async function DeclaracionCertificacion(fechasArray, name) {
     console.log("pdf Declaracioncertificacion creado en memoria listo para guardar")
 
     // Cambio de local a vercel aqui
-    const tempFilePath = path.join(process.cwd(), 'tmp', `DeclaracionyCertificaciondelPeticionario${cleanName}.pdf`); // Guargado en tmp de disco local
-    fs.writeFileSync(tempFilePath, pdfBytes);
-    //const tmpVercel = `/tmp/DeclaracionyCertificaciondelPeticionario${cleanName}.pdf`; // Guargado en /tmp/ de vercel
-    //fs.writeFileSync(tmpVercel, pdfBytes);
+    //const tempFilePath = path.join(process.cwd(), 'tmp', `DeclaracionyCertificaciondelPeticionario${cleanName}.pdf`); // Guargado en tmp de disco local
+    //fs.writeFileSync(tempFilePath, pdfBytes);
+    const tmpVercel = `/tmp/DeclaracionyCertificaciondelPeticionario${cleanName}.pdf`; // Guargado en /tmp/ de vercel
+    fs.writeFileSync(tmpVercel, pdfBytes);
 
     console.log("PDF modificado y guardado en 'tmp/CertificaciondeVerdadCliente.pdf")
 }
