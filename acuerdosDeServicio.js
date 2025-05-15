@@ -44,7 +44,7 @@ async function acuerdosDeServicio(fechasArray, name, dir1, dir2, num, email, ben
     try {  
         // crear instancia de pdf make
         const printer = new pdfmake(fonts);
-        const marginParrafos = [0, 0, 0, 25];
+        const marginParrafos = [0, 0, 0, 29];
 
         // definir contenido del documento
         const docDefinition = {
@@ -65,7 +65,7 @@ async function acuerdosDeServicio(fechasArray, name, dir1, dir2, num, email, ben
                 { width: '*', text: '' }, 
                 { 
                   width: 'auto', 
-                  text: "110 S Hartford Ave. Suite 2532\nTulsa, OK 74120\n+1 (918) 212 - 0327\nWhatsApp +1 (539) 525 - 1561\nMigración Latina LLC\nwww.migracionlatina.com",
+                  text: [ "110 S Hartford Ave. Suite 2532\nTulsa, OK 74120\n+1 (918) 212 - 0327\nWhatsApp +1 (539) 525 - 1561\nMigración Latina LLC\n", {text: 'www.migracionlatina.com', decoration: 'underline', color: 'blue'}],
                   alignment: 'center',
                   fontSize: 8,
                   margin: [0, 25, 0, 0]
