@@ -79,7 +79,7 @@ index.post('/submit', async (req, res) => {
         await CertificaciondeVerdadCliente(fechasArray, name, dir1, dir2, num, email)
         await DeclaracionCertificacion(fechasArray, name)
         await acuerdosDeServicio(fechasArray, name, dir1, dir2, num, email, beneficiarios, pagoTotal, pagoInicial, numCuotas, valorCuotas) 
-        await anexo1(name, email, dir1, dir2, num, fechasArray, numCuotas, pagoTotal, pagoInicial)
+        await anexo1(name, email, dir1, dir2, num, fechasArray, numCuotas, valorCuotas, pagoTotal, pagoInicial)
         await pagare(name, fechasArray, dir1, dir2, num, email, srA, pasaporte, pais, numCuotas, valorLetrasFinanciamientoEs, valorLetrasFinanciamientoEn, valorNumerosFinanciamiento);
         await renunciaResponsabilidad(name, fechasArray, dir1, dir2, num, email, srA, pagoTotal, numCuotas, valorCuotas);
         await metodosDePago(name, fechasArray, dir1, dir2, num, email, srA, nameAgent);

@@ -14,7 +14,7 @@ const fonts = {
 
 
 //añadir total, inicial, cuotas
-async function anexo1(name, email, dir1, dir2, num, fechasArray, numCuotas, pagoTotal, pagoInicial) {
+async function anexo1(name, email, dir1, dir2, num, fechasArray, numCuotas, valorCuotas, pagoTotal, pagoInicial) {
 
     const fechaNumeros = fechasArray[2];
 
@@ -39,7 +39,7 @@ async function anexo1(name, email, dir1, dir2, num, fechasArray, numCuotas, pago
     const fechasCuotas = generarFechasMensuales(fechaNumeros, numCuotas);
     const cuotas = [];
     for (let index = 0; index < numCuotas; index++) {
-        const cuota = { cuota: index+1, fecha: fechasCuotas[index], valor: 500};
+        const cuota = { cuota: index+1, fecha: fechasCuotas[index], valor: valorCuotas};
         cuotas.push(cuota);
     };
     //{ cuota: 1, fecha: '01/01/2024', valor: 500}  formato
