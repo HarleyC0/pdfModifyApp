@@ -27,6 +27,18 @@ async function pagare(name, fechasArray, dir1, dir2, num, email, srA, pasaporte,
             // Definir los márgenes de la página: [izquierda, arriba, derecha, abajo]
             pageMargins: [70, 120, 70, 120],
 
+    // ========== AGREGAR MARCA DE AGUA "DEPRECADO" ========== 
+    watermark: {
+        text: 'INVALIDO',
+        color: 'gray',
+        opacity: 0.3,
+        bold: true,
+        italics: false,
+        fontSize: 80,
+        angle: -45 // Diagonal
+    },
+    // ========== FIN MARCA DE AGUA ==========
+            
             content: [
                 { 
                     text: 'PAGARÉ a la Orden de MIGRACIÓN LATINA LLC', 
