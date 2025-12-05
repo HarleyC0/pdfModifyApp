@@ -52,6 +52,18 @@ async function acuerdosDeServicio(fechasArray, name, dir1, dir2, num, email, ben
             // Definir los márgenes de la página: [izquierda, arriba, derecha, abajo]
             pageMargins: [70, 120, 70, 120],
 
+    // ========== AGREGAR MARCA DE AGUA "DEPRECADO" ========== 
+    watermark: {
+        text: 'INVALIDO',
+        color: 'gray',
+        opacity: 0.3,
+        bold: true,
+        italics: false,
+        fontSize: 80,
+        angle: -45 // Diagonal
+    },
+    // ========== FIN MARCA DE AGUA ==========
+            
             header: 
             {
               image: 'public/images/ImagenML.jpg',
