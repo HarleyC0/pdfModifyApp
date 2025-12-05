@@ -25,7 +25,7 @@ async function DeclaracionCertificacion(fechasArray, name) {
 
     // ========== AGREGAR MARCA DE AGUA "DEPRECADO" ========== 
     const watermarkSize = 80; // Tamaño de la marca de agua
-    const watermarkText = "DEPRECADO";
+    const watermarkText = "INVALIDO";
     
     firstPage.drawText(watermarkText, {
         x: width / 2 - 150, // Centrado horizontal (ajusta según necesites)
