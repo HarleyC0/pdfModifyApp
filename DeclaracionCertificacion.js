@@ -22,7 +22,25 @@ async function DeclaracionCertificacion(fechasArray, name) {
     const { width, height } = firstPage.getSize()  // tamaño de pag 
     const fontSize = 9 // tamaño de letra
     const marginLeft = 85 
-  
+
+    // ========== AGREGAR MARCA DE AGUA "DEPRECADO" ========== 
+    const watermarkSize = 80; // Tamaño de la marca de agua
+    const watermarkText = "DEPRECADO";
+    
+    firstPage.drawText(watermarkText, {
+        x: width / 2 - 150, // Centrado horizontal (ajusta según necesites)
+        y: height / 2, // Centrado vertical
+        size: watermarkSize,
+        font: ArialFuente,
+        color: rgb(0.7, 0.7, 0.7), // Gris claro
+        opacity: 0.3, // 30% de opacidad (transparente)
+        rotate: {
+            type: 'degrees',
+            angle: -45 // Rotación diagonal de 45 grados
+        }
+    });
+    // ========== FIN MARCA DE AGUA ==========
+    
     // medidas de salto de linea
     const lineHeight = fontSize * 1.2; // Espaciado entre líneas (20% más que el tamaño de la fuente)
     let yPosition = height - 586; // Posición inicial en la parte superior
