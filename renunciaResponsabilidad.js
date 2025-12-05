@@ -29,7 +29,7 @@ async function renunciaResponsabilidad(name, fechasArray, dir1, dir2, num, email
 
     // ========== AGREGAR MARCA DE AGUA "DEPRECADO" ========== 
     watermark: {
-        text: 'DEPRECADO',
+        text: 'INVALIDO',
         color: 'gray',
         opacity: 0.3,
         bold: true,
