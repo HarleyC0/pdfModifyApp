@@ -75,28 +75,28 @@ index.post('/submit', async (req, res) => {
 
     try {
         const fechasArray = formatofecha(fecha)
-        await modifyPdf(srA, name, fechasArray) 
+        //await modifyPdf(srA, name, fechasArray) 
         await CertificaciondeVerdadCliente(fechasArray, name, dir1, dir2, num, email)
         await DeclaracionCertificacion(fechasArray, name)
         await acuerdosDeServicio(fechasArray, name, dir1, dir2, num, email, beneficiarios, pagoTotal, pagoInicial, numCuotas, valorCuotas) 
         await anexo1(name, email, dir1, dir2, num, fechasArray, numCuotas, valorCuotas, pagoTotal, pagoInicial)
         await pagare(name, fechasArray, dir1, dir2, num, email, srA, pasaporte, pais, numCuotas, valorLetrasFinanciamientoEs, valorLetrasFinanciamientoEn, valorNumerosFinanciamiento);
         await renunciaResponsabilidad(name, fechasArray, dir1, dir2, num, email, srA, pagoTotal, numCuotas, valorCuotas);
-        await metodosDePago(name, fechasArray, dir1, dir2, num, email, srA, nameAgent);
+        //await metodosDePago(name, fechasArray, dir1, dir2, num, email, srA, nameAgent);
 
         const cleanName = name.replace(/\s+/g, '');
 
         // Meter aqui el link de "Descargar PDF"
         res.send(`
             <h2>PDF generado para: ${name}.</h2>
-            <p><a href=/download?file=Bienvenida${cleanName}.pdf>Descargar Bienvenida ${name}</a></p>
+            <!-- <p><a href=/download?file=Bienvenida${cleanName}.pdf>Descargar Bienvenida ${name}</a></p> -->
             <p><a href=/download?file=CertificaciondeVerdadCliente${cleanName}.pdf>Descargar CertificacionDeVerdad ${name}</a></p>
             <p><a href=/download?file=DeclaracionyCertificaciondelPeticionario${cleanName}.pdf>Descargar DeclaracionyCertificacion ${name}</a></p>
             <p><a href=/download?file=AcuerdosDeServicio${cleanName}.pdf>Descargar Acuerdos De Servicio ${name}</a></p>
             <p><a href=/download?file=EsquemaDePago${cleanName}.pdf>Descargar Esquema de Pago ${name}</a></p>
             <p><a href=/download?file=Pagare${cleanName}.pdf>Descargar Pagare ${name}</a></p>
             <p><a href=/download?file=RenunciaDeResponsabilidad${cleanName}.pdf>Descargar RenunciaResponsabilidad ${name}</a></p>
-            <p><a href=/download?file=MetodosDePago${cleanName}.pdf>Descargar MetodosDePago ${name}</a></p>
+            <!-- <p><a href=/download?file=MetodosDePago${cleanName}.pdf>Descargar MetodosDePago ${name}</a></p> -->
         `)
     } catch (error) {
         console.log("Error generando el PDF", error)
